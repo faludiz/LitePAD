@@ -153,3 +153,4 @@ msgstr "Sz&erkesztés"
 #: tfrmmain.wordwrap.caption
 msgid "Word Wrap"
 msgstr "Sortörés"
+

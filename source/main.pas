@@ -24,6 +24,9 @@ type
     actInstertDateTime: TAction;
     actInsertGUID: TAction;
     actInsertUserName: TAction;
+    actFontSizeUp: TAction;
+    actFontSizeDown: TAction;
+    actFontSizeDefault: TAction;
     actJump: TAction;
     actLoadOptions: TAction;
     actSaveOptions: TAction;
@@ -85,6 +88,9 @@ type
     procedure actInsertTimeExecute(Sender: TObject);
     procedure actInsertUserNameExecute(Sender: TObject);
     procedure actInstertDateTimeExecute(Sender: TObject);
+    procedure actFontSizeUpExecute(Sender: TObject);
+    procedure actFontSizeDownExecute(Sender: TObject);
+    procedure actFontSizeDefaultExecute(Sender: TObject);
     procedure actJumpExecute(Sender: TObject);
     procedure actLoadOptionsExecute(Sender: TObject);
     procedure actNewExecute(Sender: TObject);
@@ -109,6 +115,7 @@ type
     fEncoding: TEncoding;
     fFoundPos: integer;
     fFullScreen: boolean;
+    fFontSize: integer;
     procedure LoadFile(const fn: string);
   public
 
@@ -187,10 +194,10 @@ var
   line, col: integer;
 begin
   Caption := format('%s - [ %s ]', [Application.Title, fFileName]);
-  line:= memoMain.CaretPos.Y + 1;
-  col:= memoMain.CaretPos.X + 1;
-  sbMain.SimpleText := format(rsStatusMsg, [memoMain.Lines.Count, line, col,
-    fEncoding.EncodingName]);
+  line := memoMain.CaretPos.Y + 1;
+  col := memoMain.CaretPos.X + 1;
+  sbMain.SimpleText := format(rsStatusMsg, [memoMain.Lines.Count,
+    line, col, fEncoding.EncodingName]);
 end;
 
 procedure TfrmMain.actUndoExecute(Sender: TObject);
@@ -393,14 +400,30 @@ begin
   memoMain.SelText := DateTimeToStr(Now);
 end;
 
+procedure TfrmMain.actFontSizeUpExecute(Sender: TObject);
+begin
+  memoMain.Font.Size:= memoMain.Font.Size + 1;
+end;
+
+procedure TfrmMain.actFontSizeDownExecute(Sender: TObject);
+begin
+  memoMain.Font.Size:= memoMain.Font.Size - 1;
+end;
+
+procedure TfrmMain.actFontSizeDefaultExecute(Sender: TObject);
+begin
+  memoMain.Font.Size := fFontSize;
+end;
+
 procedure TfrmMain.actJumpExecute(Sender: TObject);
 var
   tmp: string;
   jump: integer;
-  Pos, i: Integer;
+  Pos, i: integer;
 begin
-  tmp:= InputBox(Application.Title, rsJumpTo, IntToStr(memoMain.CaretPos.Y + 1));
-  if TryStrToInt(tmp, jump) then begin
+  tmp := InputBox(Application.Title, rsJumpTo, IntToStr(memoMain.CaretPos.Y + 1));
+  if TryStrToInt(tmp, jump) then
+  begin
     if (jump < 1) or (jump > memoMain.Lines.Count) then Exit;
     Pos := 0;
     for i := 0 to jump - 2 do
@@ -423,7 +446,8 @@ begin
     Self.Width := ini.ReadInteger(Application.Title, keyWidth, 640);
     Self.Height := ini.ReadInteger(Application.Title, keyHeight, 480);
     memoMain.Font.Name := ini.ReadString(Application.Title, keyFontName, 'default');
-    memoMain.Font.Size := ini.ReadInteger(Application.Title, keyFontSize, 12);
+    fFontSize := ini.ReadInteger(Application.Title, keyFontSize, 12);
+    memoMain.Font.Size := fFontSize;
   finally
     ini.Free;
   end;
@@ -449,13 +473,9 @@ const
   {$I litepad_version.inc}
   url = 'https://github.com/faludiz/LitePAD';
 begin
-  mr:= QuestionDlg(
-    rsAbout,
-    Format(rsAboutInfo, [AppLication.Title, APP_VERSION, 'Zoltan Faludi', url]),
-    mtInformation,
-    [mrOk, mrYesToAll, rsSponsor, 'isDefault'],
-    0
-    );
+  mr := QuestionDlg(rsAbout, Format(rsAboutInfo,
+    [AppLication.Title, APP_VERSION, 'Zoltan Faludi', url]), mtInformation,
+    [mrOk, mrYesToAll, rsSponsor, 'isDefault'], 0);
   if mr = mrYesToAll then OpenUrl(url);
 end;
 

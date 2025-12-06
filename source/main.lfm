@@ -250,6 +250,18 @@ object frmMain: TfrmMain
       ShortCut = 16455
       OnExecute = actJumpExecute
     end
+    object actFontSizeUp: TAction
+      ShortCut = 16491
+      OnExecute = actFontSizeUpExecute
+    end
+    object actFontSizeDown: TAction
+      ShortCut = 16493
+      OnExecute = actFontSizeDownExecute
+    end
+    object actFontSizeDefault: TAction
+      ShortCut = 16480
+      OnExecute = actFontSizeDefaultExecute
+    end
   end
   object tmrMain: TIdleTimer
     AutoEnabled = True
