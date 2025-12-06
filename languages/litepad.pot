@@ -1,0 +1,116 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: main.rsfilter
+msgid "Text files (*.txt)|*.txt;*.TXT|All files (*.*)|*.*"
+msgstr ""
+
+#: main.rsnomoreresults
+msgid "No more results"
+msgstr ""
+
+#: main.rsstatusmsg
+#, object-pascal-format
+msgid "Lines: %d | %s"
+msgstr ""
+
+#: tfrmmain.actabout.caption
+msgid "&About"
+msgstr ""
+
+#: tfrmmain.actcopy.caption
+msgid "&Copy"
+msgstr ""
+
+#: tfrmmain.actcut.caption
+msgid "C&ut"
+msgstr ""
+
+#: tfrmmain.actexit.caption
+msgid "E&xit"
+msgstr ""
+
+#: tfrmmain.actfind.caption
+msgid "&Find..."
+msgstr ""
+
+#: tfrmmain.actfont.caption
+msgid "F&ont..."
+msgstr ""
+
+#: tfrmmain.actfullscreen.caption
+msgid "Full Screen"
+msgstr ""
+
+#: tfrmmain.actinsertdate.caption
+msgid "&Date"
+msgstr ""
+
+#: tfrmmain.actinsertguid.caption
+msgid "&GUID"
+msgstr ""
+
+#: tfrmmain.actinserttime.caption
+msgid "&Time"
+msgstr ""
+
+#: tfrmmain.actinsertusername.caption
+msgid "&User"
+msgstr ""
+
+#: tfrmmain.actinstertdatetime.caption
+msgid "Date and T&ime"
+msgstr ""
+
+#: tfrmmain.actnew.caption
+msgid "&New"
+msgstr ""
+
+#: tfrmmain.actopen.caption
+msgid "&Open..."
+msgstr ""
+
+#: tfrmmain.actpaste.caption
+msgid "&Paste"
+msgstr ""
+
+#: tfrmmain.actreplace.caption
+msgid "&Replace..."
+msgstr ""
+
+#: tfrmmain.actsave.caption
+msgid "&Save"
+msgstr ""
+
+#: tfrmmain.actsaveas.caption
+msgid "Save &As..."
+msgstr ""
+
+#: tfrmmain.actundo.caption
+msgid "&Undo"
+msgstr ""
+
+#: tfrmmain.caption
+msgid "LitePAD"
+msgstr ""
+
+#: tfrmmain.menuitem1.caption
+msgid "&File"
+msgstr ""
+
+#: tfrmmain.menuitem15.caption
+msgid "&Help"
+msgstr ""
+
+#: tfrmmain.menuitem17.caption
+msgid "&Insert"
+msgstr ""
+
+#: tfrmmain.menuitem6.caption
+msgid "&Edit"
+msgstr ""
+
+#: tfrmmain.wordwrap.caption
+msgid "Word Wrap"
+msgstr ""
+

@@ -10,7 +10,8 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, main,
+  DefaultTranslator,
+  Forms, main, uhelper,
   {$ifdef Windows}
     uDarkStyleParams,
     uMetaDarkStyle,

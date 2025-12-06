@@ -14,6 +14,18 @@
       </XPManifest>
       <Icon Value="0"/>
     </General>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="..\languages"/>
+    </i18n>
+    <VersionInfo>
+      <UseVersionInfo Value="True"/>
+      <AutoIncrementBuild Value="True"/>
+      <MajorVersionNr Value="25"/>
+      <MinorVersionNr Value="12"/>
+      <BuildNr Value="4"/>
+      <StringTable CompanyName="Zoltan Faludi" FileDescription="LitePAD" InternalName="litepad" LegalCopyright="Zoltan Faludi" LegalTrademarks="Zoltan Faludi" OriginalFilename="litepad" ProductName="LitePAD"/>
+    </VersionInfo>
     <BuildModes>
       <Item Name="Default" Default="True"/>
       <Item Name="Debug">

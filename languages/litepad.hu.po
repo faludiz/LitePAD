@@ -1,0 +1,126 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"Last-Translator: Faludi Zoltán <zoltan@faludi.info>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: hu_HU\n"
+
+#: main.rsfilter
+msgid "Text files (*.txt)|*.txt;*.TXT|All files (*.*)|*.*"
+msgstr "Szövegfájlok (*.txt)|*.txt;*.TXT|Minden fákl (*.*)|*.*"
+
+#: main.rsnomoreresults
+msgid "No more results"
+msgstr "Nincs több találat"
+
+#: main.rsstatusmsg
+#, object-pascal-format
+msgid "Lines: %d | %s"
+msgstr "Sorok száma: %d | %s"
+
+#: tfrmmain.actabout.caption
+msgid "&About"
+msgstr "&Névjegy"
+
+#: tfrmmain.actcopy.caption
+msgid "&Copy"
+msgstr "&Másolás"
+
+#: tfrmmain.actcut.caption
+msgid "C&ut"
+msgstr "&Kivágás"
+
+#: tfrmmain.actexit.caption
+msgid "E&xit"
+msgstr "&Kilépés"
+
+#: tfrmmain.actfind.caption
+msgid "&Find..."
+msgstr "Kere&sés..."
+
+#: tfrmmain.actfont.caption
+msgid "F&ont..."
+msgstr "&Betűtípus..."
+
+#: tfrmmain.actfullscreen.caption
+msgid "Full Screen"
+msgstr "Teljes képernyő"
+
+#: tfrmmain.actinsertdate.caption
+msgid "&Date"
+msgstr "&Dátum"
+
+#: tfrmmain.actinsertguid.caption
+msgid "&GUID"
+msgstr "&GUID"
+
+#: tfrmmain.actinserttime.caption
+msgid "&Time"
+msgstr "&Idő"
+
+#: tfrmmain.actinsertusername.caption
+msgid "&User"
+msgstr "&Felhasználó"
+
+#: tfrmmain.actinstertdatetime.caption
+msgid "Date and T&ime"
+msgstr "Dát&um és idő"
+
+#: tfrmmain.actnew.caption
+msgid "&New"
+msgstr "Ú&j"
+
+#: tfrmmain.actopen.caption
+msgid "&Open..."
+msgstr "M&egnyitás..."
+
+#: tfrmmain.actpaste.caption
+msgid "&Paste"
+msgstr "B&eillesztés"
+
+#: tfrmmain.actreplace.caption
+msgid "&Replace..."
+msgstr "Cse&re..."
+
+#: tfrmmain.actsave.caption
+msgid "&Save"
+msgstr "&Mentés"
+
+#: tfrmmain.actsaveas.caption
+msgid "Save &As..."
+msgstr "Mentés másként..."
+
+#: tfrmmain.actundo.caption
+msgid "&Undo"
+msgstr "&Visszavonás"
+
+#: tfrmmain.caption
+msgid "LitePAD"
+msgstr "LitePAD"
+
+#: tfrmmain.menuitem1.caption
+msgid "&File"
+msgstr "&Fájl"
+
+#: tfrmmain.menuitem15.caption
+msgid "&Help"
+msgstr "&Súgó"
+
+#: tfrmmain.menuitem17.caption
+msgid "&Insert"
+msgstr "&Beszúrás"
+
+#: tfrmmain.menuitem6.caption
+msgid "&Edit"
+msgstr "Sz&erkesztés"
+
+#: tfrmmain.wordwrap.caption
+msgid "Word Wrap"
+msgstr "Sortörés"

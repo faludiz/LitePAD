@@ -94,7 +94,7 @@ object frmMain: TfrmMain
       end
     end
     object MenuItem17: TMenuItem
-      Caption = 'Insert'
+      Caption = '&Insert'
       object MenuItem18: TMenuItem
         Action = actInsertDate
       end
@@ -112,7 +112,7 @@ object frmMain: TfrmMain
       end
     end
     object MenuItem15: TMenuItem
-      Caption = 'Help'
+      Caption = '&Help'
       object MenuItem16: TMenuItem
         Action = actAbout
       end
@@ -150,25 +150,25 @@ object frmMain: TfrmMain
     end
     object actUndo: TAction
       Category = 'Edit'
-      Caption = 'Undo'
+      Caption = '&Undo'
       ShortCut = 16474
       OnExecute = actUndoExecute
     end
     object actCut: TAction
       Category = 'Edit'
-      Caption = 'Cut'
+      Caption = 'C&ut'
       ShortCut = 16472
       OnExecute = actCutExecute
     end
     object actCopy: TAction
       Category = 'Edit'
-      Caption = 'Copy'
+      Caption = '&Copy'
       ShortCut = 16451
       OnExecute = actCopyExecute
     end
     object actPaste: TAction
       Category = 'Edit'
-      Caption = 'Paste'
+      Caption = '&Paste'
       ShortCut = 16470
       OnExecute = actPasteExecute
     end
@@ -185,19 +185,19 @@ object frmMain: TfrmMain
     end
     object actFind: TAction
       Category = 'Edit'
-      Caption = 'Find...'
+      Caption = '&Find...'
       ShortCut = 16454
       OnExecute = actFindExecute
     end
     object actReplace: TAction
       Category = 'Edit'
-      Caption = 'Replace...'
+      Caption = '&Replace...'
       ShortCut = 16456
       OnExecute = actReplaceExecute
     end
     object actFont: TAction
       Category = 'Edit'
-      Caption = 'Font...'
+      Caption = 'F&ont...'
       OnExecute = actFontExecute
     end
     object actSaveOptions: TAction
@@ -213,32 +213,32 @@ object frmMain: TfrmMain
       OnExecute = actFullScreenExecute
     end
     object actAbout: TAction
-      Caption = 'About'
+      Caption = '&About'
       OnExecute = actAboutExecute
     end
     object actInsertDate: TAction
       Category = 'Instert'
-      Caption = 'Date'
+      Caption = '&Date'
       OnExecute = actInsertDateExecute
     end
     object actInsertTime: TAction
       Category = 'Instert'
-      Caption = 'Time'
+      Caption = '&Time'
       OnExecute = actInsertTimeExecute
     end
     object actInstertDateTime: TAction
       Category = 'Instert'
-      Caption = 'Date and Time'
+      Caption = 'Date and T&ime'
       OnExecute = actInstertDateTimeExecute
     end
     object actInsertGUID: TAction
       Category = 'Instert'
-      Caption = 'GUID'
+      Caption = '&GUID'
       OnExecute = actInsertGUIDExecute
     end
     object actInsertUserName: TAction
       Category = 'Instert'
-      Caption = 'User'
+      Caption = '&User'
       OnExecute = actInsertUserNameExecute
     end
   end
