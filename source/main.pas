@@ -149,6 +149,7 @@ const
   keyHeight = 'window.height';
   keyFontName = 'font.name';
   keyFontSize = 'font.size';
+  keyFontStyle = 'font.style';
 
   { TfrmMain }
 
@@ -398,12 +399,12 @@ end;
 
 procedure TfrmMain.actFontSizeUpExecute(Sender: TObject);
 begin
-  memoMain.Font.Size:= memoMain.Font.Size + 1;
+  memoMain.Font.Size := memoMain.Font.Size + 1;
 end;
 
 procedure TfrmMain.actFontSizeDownExecute(Sender: TObject);
 begin
-  memoMain.Font.Size:= memoMain.Font.Size - 1;
+  memoMain.Font.Size := memoMain.Font.Size - 1;
 end;
 
 procedure TfrmMain.actFontSizeDefaultExecute(Sender: TObject);
@@ -500,6 +501,7 @@ begin
     ini.WriteInteger(Application.Title, keyHeight, Self.Height);
     ini.WriteString(Application.Title, keyFontName, memoMain.Font.Name);
     ini.WriteInteger(Application.Title, keyFontSize, memoMain.Font.Size);
+    ini.WriteInteger(Application.Title, keyFontStyle, integer(memoMain.Font.Style));
     ini.UpdateFile;
   finally
     ini.Free;
@@ -520,6 +522,8 @@ begin
     memoMain.Font.Name := ini.ReadString(Application.Title, keyFontName, 'default');
     fFontSize := ini.ReadInteger(Application.Title, keyFontSize, 12);
     memoMain.Font.Size := fFontSize;
+    memoMain.Font.Style := TFontStyles(ini.ReadInteger(Application.Title,
+      keyFontStyle, 0));
     memoMain.Refresh;
   finally
     ini.Free;
