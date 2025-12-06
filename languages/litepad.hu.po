@@ -32,14 +32,18 @@ msgstr ""
 msgid "Text files (*.txt)|*.txt;*.TXT|All files (*.*)|*.*"
 msgstr "Szövegfájlok (*.txt)|*.txt;*.TXT|Minden fákl (*.*)|*.*"
 
+#: main.rsjumpto
+msgid "Jump to line:"
+msgstr "Ugrás erre a sorra:"
+
 #: main.rsnomoreresults
 msgid "No more results"
 msgstr "Nincs több találat"
 
 #: main.rsstatusmsg
 #, object-pascal-format
-msgid "Lines: %d | %s"
-msgstr "Sorok száma: %d | %s"
+msgid "Lines: %d | Line: %d | Col: %d | Encoding: %s"
+msgstr "Sorok száma: %d | Sor: %d | Oszlop: %d | Kódlap: %s"
 
 #: tfrmmain.actabout.caption
 msgctxt "tfrmmain.actabout.caption"
@@ -89,6 +93,10 @@ msgstr "&Felhasználó"
 #: tfrmmain.actinstertdatetime.caption
 msgid "Date and T&ime"
 msgstr "Dát&um és idő"
+
+#: tfrmmain.actjump.caption
+msgid "&Jump..."
+msgstr "&Ugrás..."
 
 #: tfrmmain.actnew.caption
 msgid "&New"

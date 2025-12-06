@@ -83,6 +83,9 @@ object frmMain: TfrmMain
       object MenuItem13: TMenuItem
         Action = actReplace
       end
+      object MenuItem23: TMenuItem
+        Action = actJump
+      end
       object MenuItem14: TMenuItem
         Action = actFont
       end
@@ -241,6 +244,12 @@ object frmMain: TfrmMain
       Caption = '&User'
       OnExecute = actInsertUserNameExecute
     end
+    object actJump: TAction
+      Category = 'Edit'
+      Caption = '&Jump...'
+      ShortCut = 16455
+      OnExecute = actJumpExecute
+    end
   end
   object tmrMain: TIdleTimer
     AutoEnabled = True
@@ -252,15 +261,15 @@ object frmMain: TfrmMain
   object dlgFind: TFindDialog
     Options = [frDown, frReplace]
     OnFind = dlgFindFind
-    Left = 96
-    Top = 240
+    Left = 168
+    Top = 104
   end
   object dlgReplace: TReplaceDialog
     Options = [frDown, frReplace, frReplaceAll, frHidePromptOnReplace]
     OnFind = dlgReplaceFind
     OnReplace = dlgReplaceReplace
-    Left = 96
-    Top = 312
+    Left = 168
+    Top = 168
   end
   object dlgFont: TFontDialog
     MinFontSize = 0

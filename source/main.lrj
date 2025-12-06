@@ -23,5 +23,6 @@
 {"hash":2863157,"name":"tfrmmain.actinserttime.caption","sourcebytes":[38,84,105,109,101],"value":"&Time"},
 {"hash":250719445,"name":"tfrmmain.actinstertdatetime.caption","sourcebytes":[68,97,116,101,32,97,110,100,32,84,38,105,109,101],"value":"Date and T&ime"},
 {"hash":2804180,"name":"tfrmmain.actinsertguid.caption","sourcebytes":[38,71,85,73,68],"value":"&GUID"},
-{"hash":2869698,"name":"tfrmmain.actinsertusername.caption","sourcebytes":[38,85,115,101,114],"value":"&User"}
+{"hash":2869698,"name":"tfrmmain.actinsertusername.caption","sourcebytes":[38,85,115,101,114],"value":"&User"},
+{"hash":29635518,"name":"tfrmmain.actjump.caption","sourcebytes":[38,74,117,109,112,46,46,46],"value":"&Jump..."}
 ]}

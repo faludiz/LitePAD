@@ -24,6 +24,7 @@ type
     actInstertDateTime: TAction;
     actInsertGUID: TAction;
     actInsertUserName: TAction;
+    actJump: TAction;
     actLoadOptions: TAction;
     actSaveOptions: TAction;
     actReplace: TAction;
@@ -53,6 +54,7 @@ type
     MenuItem20: TMenuItem;
     MenuItem21: TMenuItem;
     MenuItem22: TMenuItem;
+    MenuItem23: TMenuItem;
     WordWrap: TMenuItem;
     Separator2: TMenuItem;
     tmrMain: TIdleTimer;
@@ -83,6 +85,7 @@ type
     procedure actInsertTimeExecute(Sender: TObject);
     procedure actInsertUserNameExecute(Sender: TObject);
     procedure actInstertDateTimeExecute(Sender: TObject);
+    procedure actJumpExecute(Sender: TObject);
     procedure actLoadOptionsExecute(Sender: TObject);
     procedure actNewExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
@@ -125,10 +128,11 @@ uses
 
 resourcestring
   rsFilter = 'Text files (*.txt)|*.txt;*.TXT|All files (*.*)|*.*';
-  rsStatusMsg = 'Lines: %d | %s';
+  rsStatusMsg = 'Lines: %d | Line: %d | Col: %d | Encoding: %s';
   rsNoMoreResults = 'No more results';
   rsAbout = 'About';
   rsAboutInfo = '%s v%s' + #10 + '© %s' + #10 + 'More Info: %s';
+  rsJumpTo = 'Jump to line:';
 
 const
   keyLeft = 'window.left';
@@ -177,9 +181,13 @@ begin
 end;
 
 procedure TfrmMain.actShowInfoExecute(Sender: TObject);
+var
+  line, col: integer;
 begin
   Caption := format('%s - [ %s ]', [Application.Title, fFileName]);
-  sbMain.SimpleText := format(rsStatusMsg, [memoMain.Lines.Count,
+  line:= memoMain.CaretPos.Y + 1;
+  col:= memoMain.CaretPos.X + 1;
+  sbMain.SimpleText := format(rsStatusMsg, [memoMain.Lines.Count, line, col,
     fEncoding.EncodingName]);
 end;
 
@@ -381,6 +389,25 @@ end;
 procedure TfrmMain.actInstertDateTimeExecute(Sender: TObject);
 begin
   memoMain.SelText := DateTimeToStr(Now);
+end;
+
+procedure TfrmMain.actJumpExecute(Sender: TObject);
+var
+  tmp: string;
+  jump: integer;
+  Pos, i: Integer;
+begin
+  tmp:= InputBox(Application.Title, rsJumpTo, IntToStr(memoMain.CaretPos.Y + 1));
+  if TryStrToInt(tmp, jump) then begin
+    if (jump < 1) or (jump > memoMain.Lines.Count) then Exit;
+    Pos := 0;
+    for i := 0 to jump - 2 do
+      Inc(Pos, Length(memoMain.Lines[i]) + LineEnding.Length);
+    memoMain.SelStart := pos;
+    memoMain.SelLength := 0;
+    memoMain.SelText := memoMain.SelText;
+    memoMain.SetFocus;
+  end;
 end;
 
 procedure TfrmMain.actLoadOptionsExecute(Sender: TObject);
