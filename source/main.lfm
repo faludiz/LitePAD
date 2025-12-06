@@ -8,8 +8,8 @@ object frmMain: TfrmMain
   ClientHeight = 480
   ClientWidth = 640
   Menu = mnuMain
-  Position = poWorkAreaCenter
   LCLVersion = '4.4.0.0'
+  OnClose = FormClose
   OnCreate = FormCreate
   OnDropFiles = FormDropFiles
   object sbMain: TStatusBar
@@ -82,6 +82,9 @@ object frmMain: TfrmMain
       end
       object MenuItem13: TMenuItem
         Action = actReplace
+      end
+      object MenuItem14: TMenuItem
+        Action = actFont
       end
       object WordWrap: TMenuItem
         AutoCheck = True
@@ -168,6 +171,17 @@ object frmMain: TfrmMain
       ShortCut = 16456
       OnExecute = actReplaceExecute
     end
+    object actFont: TAction
+      Category = 'Edit'
+      Caption = 'Font...'
+      OnExecute = actFontExecute
+    end
+    object actSaveOptions: TAction
+      OnExecute = actSaveOptionsExecute
+    end
+    object actLoadOptions: TAction
+      OnExecute = actLoadOptionsExecute
+    end
   end
   object tmrMain: TIdleTimer
     AutoEnabled = True
@@ -188,5 +202,12 @@ object frmMain: TfrmMain
     OnReplace = dlgReplaceReplace
     Left = 96
     Top = 312
+  end
+  object dlgFont: TFontDialog
+    MinFontSize = 0
+    MaxFontSize = 0
+    Options = []
+    Left = 168
+    Top = 40
   end
 end

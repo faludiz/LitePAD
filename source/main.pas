@@ -16,6 +16,9 @@ type
     actDarkMode: TAction;
     actHandleParams: TAction;
     actFind: TAction;
+    actFont: TAction;
+    actLoadOptions: TAction;
+    actSaveOptions: TAction;
     actReplace: TAction;
     actNew: TAction;
     actUndo: TAction;
@@ -29,10 +32,12 @@ type
     actShowInfo: TAction;
     alMain: TActionList;
     dlgFind: TFindDialog;
+    dlgFont: TFontDialog;
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
     dlgReplace: TReplaceDialog;
     MenuItem13: TMenuItem;
+    MenuItem14: TMenuItem;
     WordWrap: TMenuItem;
     Separator2: TMenuItem;
     tmrMain: TIdleTimer;
@@ -54,18 +59,22 @@ type
     procedure actCutExecute(Sender: TObject);
     procedure actExitExecute(Sender: TObject);
     procedure actFindExecute(Sender: TObject);
+    procedure actFontExecute(Sender: TObject);
     procedure actHandleParamsExecute(Sender: TObject);
+    procedure actLoadOptionsExecute(Sender: TObject);
     procedure actNewExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actReplaceExecute(Sender: TObject);
     procedure actSaveAsExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
+    procedure actSaveOptionsExecute(Sender: TObject);
     procedure actShowInfoExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
     procedure dlgFindFind(Sender: TObject);
     procedure dlgReplaceFind(Sender: TObject);
     procedure dlgReplaceReplace(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure tmrMainTimer(Sender: TObject);
@@ -84,8 +93,11 @@ var
 
 implementation
 
+{$R *.lfm}
+
 uses
   uhelper,
+  IniFiles,
   StrUtils;
 
 resourcestring
@@ -93,13 +105,20 @@ resourcestring
   rsStatusMsg = 'Lines: %d | %s';
   rsNoMoreResults = 'No more results';
 
-  {$R *.lfm}
+const
+  keyLeft = 'window.left';
+  keyTop = 'window.top';
+  keyWidth = 'window.width';
+  keyHeight = 'window.height';
+  keyFontName = 'font.name';
+  keyFontSize = 'font.size';
 
   { TfrmMain }
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
-  actDarkMode.Execute;
+  //actDarkMode.Execute;
+  actLoadOptions.Execute;
   memoMain.Font.Size := 12;
   actNew.Execute;
   actShowInfo.Execute;
@@ -210,6 +229,12 @@ begin
     ShowMessage(rsNoMoreResults);
 end;
 
+procedure TfrmMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  actSaveOptions.Execute;
+  CloseAction := caFree;
+end;
+
 procedure TfrmMain.actOpenExecute(Sender: TObject);
 var
   od: TOpenDialog;
@@ -252,6 +277,7 @@ end;
 
 procedure TfrmMain.actExitExecute(Sender: TObject);
 begin
+  actSaveOptions.Execute;
   Close;
 end;
 
@@ -267,6 +293,12 @@ begin
   end;
 end;
 
+procedure TfrmMain.actFontExecute(Sender: TObject);
+begin
+  dlgFont.Font := memoMain.Font;
+  if dlgFont.Execute then memoMain.Font := dlgFont.Font;
+end;
+
 procedure TfrmMain.actHandleParamsExecute(Sender: TObject);
 begin
   if ParamCount > 0 then
@@ -277,6 +309,23 @@ begin
       LoadFile(FileName);
       actShowInfo.Execute;
     end;
+  end;
+end;
+
+procedure TfrmMain.actLoadOptionsExecute(Sender: TObject);
+var
+  ini: TIniFile;
+begin
+  ini := TIniFile.Create(GetAppConfigFile(False));
+  try
+    Self.Left := ini.ReadInteger(Application.Title, keyLeft, 100);
+    Self.Top := ini.ReadInteger(Application.Title, keyTop, 100);
+    Self.Width := ini.ReadInteger(Application.Title, keyWidth, 640);
+    Self.Height := ini.ReadInteger(Application.Title, keyHeight, 480);
+    memoMain.Font.Name := ini.ReadString(Application.Title, keyFontName, 'default');
+    memoMain.Font.Size := ini.ReadInteger(Application.Title, keyFontSize, 12);
+  finally
+    ini.Free;
   end;
 end;
 
@@ -322,6 +371,23 @@ begin
   if FileName <> '' then memoMain.Lines.SaveToFile(FileName)
   else
     actSaveAs.Execute;
+end;
+
+procedure TfrmMain.actSaveOptionsExecute(Sender: TObject);
+var
+  ini: TIniFile;
+begin
+  ini := TIniFile.Create(GetAppConfigFile(False));
+  try
+    ini.WriteInteger(Application.Title, keyLeft, Self.Left);
+    ini.WriteInteger(Application.Title, keyTop, Self.Top);
+    ini.WriteInteger(Application.Title, keyWidth, Self.Width);
+    ini.WriteInteger(Application.Title, keyHeight, Self.Height);
+    ini.WriteString(Application.Title, keyFontName, memoMain.Font.Name);
+    ini.WriteInteger(Application.Title, keyFontSize, memoMain.Font.Size);
+  finally
+    ini.Free;
+  end;
 end;
 
 end.
