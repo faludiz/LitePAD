@@ -1,0 +1,155 @@
+object frmMain: TfrmMain
+  Left = 349
+  Height = 480
+  Top = 250
+  Width = 640
+  AllowDropFiles = True
+  Caption = 'LitePAD'
+  ClientHeight = 480
+  ClientWidth = 640
+  Menu = mnuMain
+  Position = poWorkAreaCenter
+  LCLVersion = '4.4.0.0'
+  OnCreate = FormCreate
+  OnDropFiles = FormDropFiles
+  object sbMain: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 457
+    Width = 640
+    Panels = <>
+  end
+  object memoMain: TMemo
+    Left = 0
+    Height = 457
+    Top = 0
+    Width = 640
+    Align = alClient
+    BorderStyle = bsNone
+    Font.Height = -16
+    Font.Pitch = fpFixed
+    Font.Quality = fqCleartypeNatural
+    Lines.Strings = (
+      'memoMain'
+    )
+    ParentFont = False
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+  object mnuMain: TMainMenu
+    Left = 96
+    Top = 40
+    object MenuItem1: TMenuItem
+      Caption = '&File'
+      object MenuItem2: TMenuItem
+        Action = actOpen
+      end
+      object MenuItem4: TMenuItem
+        Action = actSave
+      end
+      object MenuItem3: TMenuItem
+        Action = actSaveAs
+      end
+      object Separator1: TMenuItem
+        Caption = '-'
+      end
+      object MenuItem5: TMenuItem
+        Action = actExit
+      end
+    end
+    object MenuItem6: TMenuItem
+      Caption = '&Edit'
+      object MenuItem7: TMenuItem
+        Action = actUndo
+      end
+      object MenuItem8: TMenuItem
+        Action = actCut
+      end
+      object MenuItem9: TMenuItem
+        Action = actCopy
+      end
+      object MenuItem10: TMenuItem
+        Action = actPaste
+      end
+      object Separator2: TMenuItem
+        Caption = '-'
+      end
+      object WordWrap: TMenuItem
+        AutoCheck = True
+        Caption = 'Word Wrap'
+        Checked = True
+        OnClick = WordWrapClick
+      end
+    end
+  end
+  object alMain: TActionList
+    Left = 96
+    Top = 104
+    object actSetCaption: TAction
+      Caption = 'actSetCaption'
+      OnExecute = actSetCaptionExecute
+    end
+    object actOpen: TAction
+      Category = 'File'
+      Caption = '&Open...'
+      ShortCut = 16463
+      OnExecute = actOpenExecute
+    end
+    object actSave: TAction
+      Category = 'File'
+      Caption = '&Save'
+      ShortCut = 16467
+      OnExecute = actSaveExecute
+    end
+    object actSaveAs: TAction
+      Category = 'File'
+      Caption = 'Save &As...'
+      ShortCut = 24659
+      OnExecute = actSaveAsExecute
+    end
+    object actExit: TAction
+      Category = 'File'
+      Caption = 'E&xit'
+      ShortCut = 32883
+      OnExecute = actExitExecute
+    end
+    object actUndo: TAction
+      Category = 'Edit'
+      Caption = 'Undo'
+      ShortCut = 16474
+      OnExecute = actUndoExecute
+    end
+    object actCut: TAction
+      Category = 'Edit'
+      Caption = 'Cut'
+      ShortCut = 16472
+      OnExecute = actCutExecute
+    end
+    object actCopy: TAction
+      Category = 'Edit'
+      Caption = 'Copy'
+      ShortCut = 16451
+      OnExecute = actCopyExecute
+    end
+    object actPaste: TAction
+      Category = 'Edit'
+      Caption = 'Paste'
+      ShortCut = 16470
+      OnExecute = actPasteExecute
+    end
+    object actDarkMode: TAction
+      Caption = 'actDarkMode'
+    end
+    object actHandleParams: TAction
+      Caption = 'actHandleParams'
+      OnExecute = actHandleParamsExecute
+    end
+  end
+  object tmrMain: TIdleTimer
+    AutoEnabled = True
+    Interval = 100
+    OnTimer = tmrMainTimer
+    Left = 96
+    Top = 168
+  end
+end
