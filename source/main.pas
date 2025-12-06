@@ -123,6 +123,7 @@ implementation
 
 uses
   uhelper,
+  LclIntf,
   IniFiles,
   StrUtils;
 
@@ -133,6 +134,7 @@ resourcestring
   rsAbout = 'About';
   rsAboutInfo = '%s v%s' + #10 + '© %s' + #10 + 'More Info: %s';
   rsJumpTo = 'Jump to line:';
+  rsSponsor = 'Sponsor';
 
 const
   keyLeft = 'window.left';
@@ -441,11 +443,19 @@ begin
 end;
 
 procedure TfrmMain.actAboutExecute(Sender: TObject);
+var
+  mr: TModalResult;
 {$I litepad_version.inc}
+  url = 'https://github.com/faludiz/LitePAD';
 begin
-  MessageDlg(rsAbout, Format(rsAboutInfo, [AppLication.Title,
-    APP_VERSION, 'Zoltan Faludi', 'https://github.com/faludiz/LitePAD']),
-    mtInformation, [mbOK], 0);
+  mr:= QuestionDlg(
+    rsAbout,
+    Format(rsAboutInfo, [AppLication.Title, APP_VERSION, 'Zoltan Faludi', url]),
+    mtInformation,
+    [mrOk, mrYesToAll, rsSponsor, 'isDefault'],
+    0
+    );
+  if mr = mrYesToAll then OpenUrl(url);
 end;
 
 procedure TfrmMain.actSaveAsExecute(Sender: TObject);

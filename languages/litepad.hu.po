@@ -40,6 +40,10 @@ msgstr "Ugrás erre a sorra:"
 msgid "No more results"
 msgstr "Nincs több találat"
 
+#: main.rssponsor
+msgid "Sponsor"
+msgstr "Támogatás"
+
 #: main.rsstatusmsg
 #, object-pascal-format
 msgid "Lines: %d | Line: %d | Col: %d | Encoding: %s"

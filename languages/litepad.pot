@@ -26,6 +26,10 @@ msgstr ""
 msgid "No more results"
 msgstr ""
 
+#: main.rssponsor
+msgid "Sponsor"
+msgstr ""
+
 #: main.rsstatusmsg
 #, object-pascal-format
 msgid "Lines: %d | Line: %d | Col: %d | Encoding: %s"
