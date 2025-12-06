@@ -143,7 +143,7 @@ begin
   //actDarkMode.Execute;
   actLoadOptions.Execute;
   memoMain.Font.Size := 12;
-  fFullScreen:= False;
+  fFullScreen := False;
   actNew.Execute;
   actShowInfo.Execute;
   actHandleParams.Execute;
@@ -325,16 +325,19 @@ end;
 
 procedure TfrmMain.actFullScreenExecute(Sender: TObject);
 begin
-  if not fFullScreen then begin
-    Self.WindowState:= wsFullScreen;
-    Self.Menu:= nil;
-    sbMain.Visible:= False;
-  end else begin
-    Self.WindowState:= wsNormal;
-    Self.Menu:= mnuMain;
-    sbMain.Visible:= True;
+  if not fFullScreen then
+  begin
+    Self.WindowState := wsFullScreen;
+    Self.Menu := nil;
+    sbMain.Visible := False;
+  end
+  else
+  begin
+    Self.WindowState := wsNormal;
+    Self.Menu := mnuMain;
+    sbMain.Visible := True;
   end;
-  fFullScreen:= not fFullScreen;
+  fFullScreen := not fFullScreen;
 end;
 
 procedure TfrmMain.actHandleParamsExecute(Sender: TObject);
@@ -352,7 +355,7 @@ end;
 
 procedure TfrmMain.actInsertDateExecute(Sender: TObject);
 begin
-  memoMain.SelText:= DateToStr(Now);
+  memoMain.SelText := DateToStr(Now);
 end;
 
 procedure TfrmMain.actInsertGUIDExecute(Sender: TObject);
@@ -360,22 +363,22 @@ var
   guid: TGUID;
 begin
   CreateGUID(guid);
-  memoMain.SelText:= GUIDToString(guid);
+  memoMain.SelText := GUIDToString(guid);
 end;
 
 procedure TfrmMain.actInsertTimeExecute(Sender: TObject);
 begin
-  memoMain.SelText:= TimeToStr(Now);
+  memoMain.SelText := TimeToStr(Now);
 end;
 
 procedure TfrmMain.actInsertUserNameExecute(Sender: TObject);
 begin
-  memoMain.SelText:= GetLoggedInUserName;
+  memoMain.SelText := GetLoggedInUserName;
 end;
 
 procedure TfrmMain.actInstertDateTimeExecute(Sender: TObject);
 begin
-  memoMain.SelText:= DateTimeToStr(Now);
+  memoMain.SelText := DateTimeToStr(Now);
 end;
 
 procedure TfrmMain.actLoadOptionsExecute(Sender: TObject);
