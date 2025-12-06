@@ -26,7 +26,6 @@ object frmMain: TfrmMain
     Width = 640
     Align = alClient
     BorderStyle = bsNone
-    Font.Height = -16
     Font.Pitch = fpFixed
     Font.Quality = fqCleartypeNatural
     Lines.Strings = (
@@ -174,8 +173,6 @@ object frmMain: TfrmMain
       Caption = '&Paste'
       ShortCut = 16470
       OnExecute = actPasteExecute
-    end
-    object actDarkMode: TAction
     end
     object actHandleParams: TAction
       OnExecute = actHandleParamsExecute

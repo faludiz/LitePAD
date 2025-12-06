@@ -13,7 +13,6 @@ type
   { TfrmMain }
 
   TfrmMain = class(TForm)
-    actDarkMode: TAction;
     actHandleParams: TAction;
     actFind: TAction;
     actFont: TAction;
@@ -155,9 +154,7 @@ const
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
-  //actDarkMode.Execute;
   actLoadOptions.Execute;
-  memoMain.Font.Size := 12;
   fFullScreen := False;
   actNew.Execute;
   actShowInfo.Execute;
@@ -320,7 +317,6 @@ end;
 
 procedure TfrmMain.actExitExecute(Sender: TObject);
 begin
-  actSaveOptions.Execute;
   Close;
 end;
 
@@ -435,24 +431,6 @@ begin
   end;
 end;
 
-procedure TfrmMain.actLoadOptionsExecute(Sender: TObject);
-var
-  ini: TIniFile;
-begin
-  ini := TIniFile.Create(GetAppConfigFile(False));
-  try
-    Self.Left := ini.ReadInteger(Application.Title, keyLeft, 100);
-    Self.Top := ini.ReadInteger(Application.Title, keyTop, 100);
-    Self.Width := ini.ReadInteger(Application.Title, keyWidth, 640);
-    Self.Height := ini.ReadInteger(Application.Title, keyHeight, 480);
-    memoMain.Font.Name := ini.ReadString(Application.Title, keyFontName, 'default');
-    fFontSize := ini.ReadInteger(Application.Title, keyFontSize, 12);
-    memoMain.Font.Size := fFontSize;
-  finally
-    ini.Free;
-  end;
-end;
-
 procedure TfrmMain.actNewExecute(Sender: TObject);
 begin
   fFileName := '';
@@ -522,6 +500,27 @@ begin
     ini.WriteInteger(Application.Title, keyHeight, Self.Height);
     ini.WriteString(Application.Title, keyFontName, memoMain.Font.Name);
     ini.WriteInteger(Application.Title, keyFontSize, memoMain.Font.Size);
+    ini.UpdateFile;
+  finally
+    ini.Free;
+  end;
+end;
+
+procedure TfrmMain.actLoadOptionsExecute(Sender: TObject);
+var
+  ini: TIniFile;
+begin
+  ini := TIniFile.Create(GetAppConfigFile(False));
+  try
+    Self.Left := ini.ReadInteger(Application.Title, keyLeft, 100);
+    Self.Top := ini.ReadInteger(Application.Title, keyTop, 100);
+    Self.Width := ini.ReadInteger(Application.Title, keyWidth, 640);
+    Self.Height := ini.ReadInteger(Application.Title, keyHeight, 480);
+    memoMain.ParentFont := False;
+    memoMain.Font.Name := ini.ReadString(Application.Title, keyFontName, 'default');
+    fFontSize := ini.ReadInteger(Application.Title, keyFontSize, 12);
+    memoMain.Font.Size := fFontSize;
+    memoMain.Refresh;
   finally
     ini.Free;
   end;
