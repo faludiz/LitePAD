@@ -23,7 +23,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="25"/>
       <MinorVersionNr Value="12"/>
-      <BuildNr Value="4"/>
+      <BuildNr Value="6"/>
       <StringTable CompanyName="Zoltan Faludi" FileDescription="LitePAD" InternalName="litepad" LegalCopyright="Zoltan Faludi" LegalTrademarks="Zoltan Faludi" OriginalFilename="litepad" ProductName="LitePAD"/>
     </VersionInfo>
     <BuildModes>
