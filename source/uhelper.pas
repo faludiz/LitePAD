@@ -67,7 +67,7 @@ var
   BytesRead: integer;
   S: rawbytestring;
 begin
-  Result := TEncoding.ANSI; // alapértelmezés
+  Result := TEncoding.ANSI; // default
   FS := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
   try
     BytesRead := FS.Read(Buffer, SizeOf(Buffer));
@@ -92,7 +92,7 @@ begin
       Exit;
     end;
 
-    // nincs BOM → olvassuk be és ellenőrizzük, érvényes UTF-8-e
+    // if no BOM -> read and check if valid UTF-8
     FS.Position := 0;
     SetLength(S, FS.Size);
     if FS.Size > 0 then

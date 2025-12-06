@@ -77,6 +77,12 @@ object frmMain: TfrmMain
       object Separator2: TMenuItem
         Caption = '-'
       end
+      object MenuItem12: TMenuItem
+        Action = actFind
+      end
+      object MenuItem13: TMenuItem
+        Action = actReplace
+      end
       object WordWrap: TMenuItem
         AutoCheck = True
         Caption = 'Word Wrap'
@@ -150,6 +156,18 @@ object frmMain: TfrmMain
       ShortCut = 16462
       OnExecute = actNewExecute
     end
+    object actFind: TAction
+      Category = 'Edit'
+      Caption = 'Find...'
+      ShortCut = 16454
+      OnExecute = actFindExecute
+    end
+    object actReplace: TAction
+      Category = 'Edit'
+      Caption = 'Replace...'
+      ShortCut = 16456
+      OnExecute = actReplaceExecute
+    end
   end
   object tmrMain: TIdleTimer
     AutoEnabled = True
@@ -157,5 +175,18 @@ object frmMain: TfrmMain
     OnTimer = tmrMainTimer
     Left = 96
     Top = 168
+  end
+  object dlgFind: TFindDialog
+    Options = [frDown, frReplace]
+    OnFind = dlgFindFind
+    Left = 96
+    Top = 240
+  end
+  object dlgReplace: TReplaceDialog
+    Options = [frDown, frReplace, frReplaceAll, frHidePromptOnReplace]
+    OnFind = dlgReplaceFind
+    OnReplace = dlgReplaceReplace
+    Left = 96
+    Top = 312
   end
 end
