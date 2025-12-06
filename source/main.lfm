@@ -41,6 +41,9 @@ object frmMain: TfrmMain
     Top = 40
     object MenuItem1: TMenuItem
       Caption = '&File'
+      object MenuItem11: TMenuItem
+        Action = actNew
+      end
       object MenuItem2: TMenuItem
         Action = actOpen
       end
@@ -85,9 +88,8 @@ object frmMain: TfrmMain
   object alMain: TActionList
     Left = 96
     Top = 104
-    object actSetCaption: TAction
-      Caption = 'actSetCaption'
-      OnExecute = actSetCaptionExecute
+    object actShowInfo: TAction
+      OnExecute = actShowInfoExecute
     end
     object actOpen: TAction
       Category = 'File'
@@ -138,11 +140,15 @@ object frmMain: TfrmMain
       OnExecute = actPasteExecute
     end
     object actDarkMode: TAction
-      Caption = 'actDarkMode'
     end
     object actHandleParams: TAction
-      Caption = 'actHandleParams'
       OnExecute = actHandleParamsExecute
+    end
+    object actNew: TAction
+      Category = 'File'
+      Caption = '&New'
+      ShortCut = 16462
+      OnExecute = actNewExecute
     end
   end
   object tmrMain: TIdleTimer
