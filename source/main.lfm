@@ -213,7 +213,7 @@ object frmMain: TfrmMain
       OnExecute = actFullScreenExecute
     end
     object actAbout: TAction
-      Caption = '&About'
+      Caption = 'About'
       OnExecute = actAboutExecute
     end
     object actInsertDate: TAction

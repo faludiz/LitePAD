@@ -18,7 +18,7 @@
 {"hash":38997374,"name":"tfrmmain.actreplace.caption","sourcebytes":[38,82,101,112,108,97,99,101,46,46,46],"value":"&Replace..."},
 {"hash":224753038,"name":"tfrmmain.actfont.caption","sourcebytes":[70,38,111,110,116,46,46,46],"value":"F&ont..."},
 {"hash":97995102,"name":"tfrmmain.actfullscreen.caption","sourcebytes":[70,117,108,108,32,83,99,114,101,101,110],"value":"Full Screen"},
-{"hash":44537540,"name":"tfrmmain.actabout.caption","sourcebytes":[38,65,98,111,117,116],"value":"&About"},
+{"hash":4691652,"name":"tfrmmain.actabout.caption","sourcebytes":[65,98,111,117,116],"value":"About"},
 {"hash":2795685,"name":"tfrmmain.actinsertdate.caption","sourcebytes":[38,68,97,116,101],"value":"&Date"},
 {"hash":2863157,"name":"tfrmmain.actinserttime.caption","sourcebytes":[38,84,105,109,101],"value":"&Time"},
 {"hash":250719445,"name":"tfrmmain.actinstertdatetime.caption","sourcebytes":[68,97,116,101,32,97,110,100,32,84,38,105,109,101],"value":"Date and T&ime"},

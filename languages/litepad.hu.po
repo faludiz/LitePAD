@@ -12,6 +12,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: hu_HU\n"
 
+#: main.rsabout
+msgctxt "main.rsabout"
+msgid "About"
+msgstr "Névjegy"
+
+#: main.rsaboutinfo
+#, object-pascal-format
+msgid ""
+"%s v%s\n"
+"© %s\n"
+"More Info: %s"
+msgstr ""
+"%s v%s\n"
+"© %s\n"
+"További infó: %s"
+
 #: main.rsfilter
 msgid "Text files (*.txt)|*.txt;*.TXT|All files (*.*)|*.*"
 msgstr "Szövegfájlok (*.txt)|*.txt;*.TXT|Minden fákl (*.*)|*.*"
@@ -26,8 +42,9 @@ msgid "Lines: %d | %s"
 msgstr "Sorok száma: %d | %s"
 
 #: tfrmmain.actabout.caption
-msgid "&About"
-msgstr "&Névjegy"
+msgctxt "tfrmmain.actabout.caption"
+msgid "About"
+msgstr "Névjegy"
 
 #: tfrmmain.actcopy.caption
 msgid "&Copy"

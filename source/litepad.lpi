@@ -102,6 +102,9 @@
           </Linking>
           <Other>
             <CustomOptions Value="-FcUTF8"/>
+            <ExecuteBefore>
+              <Command Value="instantfpc update_version.pas litepad.lpi"/>
+            </ExecuteBefore>
           </Other>
         </CompilerOptions>
       </Item>

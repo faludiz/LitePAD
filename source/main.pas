@@ -127,6 +127,8 @@ resourcestring
   rsFilter = 'Text files (*.txt)|*.txt;*.TXT|All files (*.*)|*.*';
   rsStatusMsg = 'Lines: %d | %s';
   rsNoMoreResults = 'No more results';
+  rsAbout = 'About';
+  rsAboutInfo = '%s v%s'+#10+'© %s'+#10+'More Info: %s';
 
 const
   keyLeft = 'window.left';
@@ -412,8 +414,10 @@ begin
 end;
 
 procedure TfrmMain.actAboutExecute(Sender: TObject);
+{$I litepad_version.inc}
 begin
-  MessageDlg(Application.Title, 'Hello World!', mtInformation, [mbOK], 0);
+  MessageDlg(rsAbout, Format(rsAboutInfo, [AppLication.Title, APP_VERSION,
+    'Zoltan Faludi', 'https://github.com/faludiz/LitePAD']), mtInformation, [mbOK], 0);
 end;
 
 procedure TfrmMain.actSaveAsExecute(Sender: TObject);

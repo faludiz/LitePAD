@@ -8,11 +8,10 @@
       <Unit>
         <Filename Value="litepad.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos Y="37"/>
-        <UsageCount Value="28"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="30"/>
       </Unit>
       <Unit>
         <Filename Value="main.pas"/>
@@ -21,18 +20,18 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="353"/>
-        <CursorPos X="22" Y="373"/>
-        <UsageCount Value="28"/>
+        <TopLine Value="124"/>
+        <CursorPos X="12" Y="124"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="uhelper.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="5"/>
-        <CursorPos X="38" Y="11"/>
-        <UsageCount Value="28"/>
+        <EditorIndex Value="2"/>
+        <CursorPos Y="12"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -91,11 +90,10 @@
       <Unit>
         <Filename Value="..\..\metadarkstyle\src\udarkstyleparams.pas"/>
         <UnitName Value="uDarkStyleParams"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="16"/>
         <CursorPos X="17" Y="33"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\sysencoding.inc"/>
@@ -115,82 +113,28 @@
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\packages\fcl-base\src\inifiles.pp"/>
         <UnitName Value="IniFiles"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="34"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="50"/>
         <CursorPos X="27" Y="62"/>
         <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\win\syswinh.inc"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="5"/>
+        <CursorPos X="2" Y="17"/>
+        <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="272" Column="8" TopLine="258"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="85" Column="14" TopLine="73"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="86" Column="14" TopLine="73"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="88" Column="13" TopLine="58"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="312" Column="10" TopLine="76"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="313" Column="25" TopLine="306"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="315" Column="26" TopLine="301"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="316" Column="26" TopLine="302"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="317" Column="26" TopLine="303"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="319" Column="26" TopLine="305"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="369" Column="20" TopLine="367"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="370" Column="20" TopLine="368"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="371" Column="20" TopLine="369"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="378" Column="20" TopLine="376"/>
-      </Position>
-      <Position>
-        <Filename Value="main.pas"/>
-        <Caret Line="343" Column="36" TopLine="341"/>
-      </Position>
       <Position>
         <Filename Value="main.pas"/>
         <Caret Line="344" Column="36" TopLine="342"/>
@@ -250,6 +194,66 @@
       <Position>
         <Filename Value="main.pas"/>
         <Caret Line="372" Column="22" TopLine="352"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="359" Column="27" TopLine="353"/>
+      </Position>
+      <Position>
+        <Filename Value="uhelper.pas"/>
+        <Caret Line="154" Column="27" TopLine="153"/>
+      </Position>
+      <Position>
+        <Filename Value="uhelper.pas"/>
+        <Caret Line="12"/>
+      </Position>
+      <Position>
+        <Filename Value="uhelper.pas"/>
+        <Caret Line="155" Column="36" TopLine="153"/>
+      </Position>
+      <Position>
+        <Filename Value="uhelper.pas"/>
+        <Caret Line="12" Column="36"/>
+      </Position>
+      <Position>
+        <Filename Value="uhelper.pas"/>
+        <Caret Line="113" Column="17" TopLine="97"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="416" Column="42" TopLine="404"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="419" Column="20" TopLine="230"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="418" Column="54" TopLine="414"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="420" Column="23" TopLine="414"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="417" Column="21" TopLine="407"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="130" Column="21" TopLine="124"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="418" Column="15" TopLine="408"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="412" Column="20" TopLine="407"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="131" Column="36" TopLine="115"/>
       </Position>
     </JumpHistory>
     <RunParams>
