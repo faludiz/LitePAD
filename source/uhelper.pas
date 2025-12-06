@@ -8,6 +8,7 @@ uses
   Classes, SysUtils;
 
 function DetectFileEncoding(const FileName: string): TEncoding;
+function GetLoggedInUserName: string;
 
 implementation
 
@@ -106,6 +107,15 @@ begin
   finally
     FS.Free;
   end;
+end;
+
+function GetLoggedInUserName: string;
+begin
+  {$IFDEF WINDOWS}
+  Result := GetEnvironmentVariable('USERNAME');
+  {$ELSE} // Linux, macOS, etc.
+  Result := GetEnvironmentVariable('USER');
+  {$ENDIF}
 end;
 
 end.

@@ -93,6 +93,30 @@ object frmMain: TfrmMain
         OnClick = WordWrapClick
       end
     end
+    object MenuItem17: TMenuItem
+      Caption = 'Insert'
+      object MenuItem18: TMenuItem
+        Action = actInsertDate
+      end
+      object MenuItem19: TMenuItem
+        Action = actInsertTime
+      end
+      object MenuItem20: TMenuItem
+        Action = actInstertDateTime
+      end
+      object MenuItem21: TMenuItem
+        Action = actInsertGUID
+      end
+      object MenuItem22: TMenuItem
+        Action = actInsertUserName
+      end
+    end
+    object MenuItem15: TMenuItem
+      Caption = 'Help'
+      object MenuItem16: TMenuItem
+        Action = actAbout
+      end
+    end
   end
   object alMain: TActionList
     Left = 96
@@ -181,6 +205,41 @@ object frmMain: TfrmMain
     end
     object actLoadOptions: TAction
       OnExecute = actLoadOptionsExecute
+    end
+    object actFullScreen: TAction
+      Category = 'Edit'
+      Caption = 'Full Screen'
+      ShortCut = 123
+      OnExecute = actFullScreenExecute
+    end
+    object actAbout: TAction
+      Caption = 'About'
+      OnExecute = actAboutExecute
+    end
+    object actInsertDate: TAction
+      Category = 'Instert'
+      Caption = 'Date'
+      OnExecute = actInsertDateExecute
+    end
+    object actInsertTime: TAction
+      Category = 'Instert'
+      Caption = 'Time'
+      OnExecute = actInsertTimeExecute
+    end
+    object actInstertDateTime: TAction
+      Category = 'Instert'
+      Caption = 'Date and Time'
+      OnExecute = actInstertDateTimeExecute
+    end
+    object actInsertGUID: TAction
+      Category = 'Instert'
+      Caption = 'GUID'
+      OnExecute = actInsertGUIDExecute
+    end
+    object actInsertUserName: TAction
+      Category = 'Instert'
+      Caption = 'User'
+      OnExecute = actInsertUserNameExecute
     end
   end
   object tmrMain: TIdleTimer

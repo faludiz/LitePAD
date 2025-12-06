@@ -17,6 +17,13 @@ type
     actHandleParams: TAction;
     actFind: TAction;
     actFont: TAction;
+    actFullScreen: TAction;
+    actAbout: TAction;
+    actInsertDate: TAction;
+    actInsertTime: TAction;
+    actInstertDateTime: TAction;
+    actInsertGUID: TAction;
+    actInsertUserName: TAction;
     actLoadOptions: TAction;
     actSaveOptions: TAction;
     actReplace: TAction;
@@ -38,6 +45,14 @@ type
     dlgReplace: TReplaceDialog;
     MenuItem13: TMenuItem;
     MenuItem14: TMenuItem;
+    MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
+    MenuItem17: TMenuItem;
+    MenuItem18: TMenuItem;
+    MenuItem19: TMenuItem;
+    MenuItem20: TMenuItem;
+    MenuItem21: TMenuItem;
+    MenuItem22: TMenuItem;
     WordWrap: TMenuItem;
     Separator2: TMenuItem;
     tmrMain: TIdleTimer;
@@ -55,12 +70,19 @@ type
     mnuMain: TMainMenu;
     memoMain: TMemo;
     sbMain: TStatusBar;
+    procedure actAboutExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCutExecute(Sender: TObject);
     procedure actExitExecute(Sender: TObject);
     procedure actFindExecute(Sender: TObject);
     procedure actFontExecute(Sender: TObject);
+    procedure actFullScreenExecute(Sender: TObject);
     procedure actHandleParamsExecute(Sender: TObject);
+    procedure actInsertDateExecute(Sender: TObject);
+    procedure actInsertGUIDExecute(Sender: TObject);
+    procedure actInsertTimeExecute(Sender: TObject);
+    procedure actInsertUserNameExecute(Sender: TObject);
+    procedure actInstertDateTimeExecute(Sender: TObject);
     procedure actLoadOptionsExecute(Sender: TObject);
     procedure actNewExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
@@ -80,9 +102,10 @@ type
     procedure tmrMainTimer(Sender: TObject);
     procedure WordWrapClick(Sender: TObject);
   private
-    FileName: string;
-    Encoding: TEncoding;
-    FFoundPos: integer;
+    fFileName: string;
+    fEncoding: TEncoding;
+    fFoundPos: integer;
+    fFullScreen: boolean;
     procedure LoadFile(const fn: string);
   public
 
@@ -120,6 +143,7 @@ begin
   //actDarkMode.Execute;
   actLoadOptions.Execute;
   memoMain.Font.Size := 12;
+  fFullScreen:= False;
   actNew.Execute;
   actShowInfo.Execute;
   actHandleParams.Execute;
@@ -127,8 +151,8 @@ end;
 
 procedure TfrmMain.FormDropFiles(Sender: TObject; const FileNames: array of string);
 begin
-  FileName := FileNames[0];
-  LoadFile(FileName);
+  fFileName := FileNames[0];
+  LoadFile(fFileName);
   actShowInfo.Execute;
 end;
 
@@ -145,16 +169,16 @@ end;
 
 procedure TfrmMain.LoadFile(const fn: string);
 begin
-  Encoding := DetectFileEncoding(fn);
-  memoMain.Lines.LoadFromFile(fn, Encoding);
-  FileName := fn;
+  fEncoding := DetectFileEncoding(fn);
+  memoMain.Lines.LoadFromFile(fn, fEncoding);
+  fFileName := fn;
 end;
 
 procedure TfrmMain.actShowInfoExecute(Sender: TObject);
 begin
-  Caption := format('%s - [ %s ]', [Application.Title, Filename]);
+  Caption := format('%s - [ %s ]', [Application.Title, fFileName]);
   sbMain.SimpleText := format(rsStatusMsg, [memoMain.Lines.Count,
-    Encoding.EncodingName]);
+    fEncoding.EncodingName]);
 end;
 
 procedure TfrmMain.actUndoExecute(Sender: TObject);
@@ -166,11 +190,11 @@ procedure TfrmMain.dlgFindFind(Sender: TObject);
 begin
   with Sender as TFindDialog do
   begin
-    FFoundPos := PosEx(unicodestring(FindText), unicodestring(memoMain.Lines.Text),
-      FFoundPos + 1);
-    if FFoundPos > 0 then
+    fFoundPos := PosEx(unicodestring(FindText), unicodestring(memoMain.Lines.Text),
+      fFoundPos + 1);
+    if fFoundPos > 0 then
     begin
-      memoMain.SelStart := FFoundPos - 1;
+      memoMain.SelStart := fFoundPos - 1;
       memoMain.SelLength := Length(unicodestring(FindText));
       memoMain.SetFocus;
       // memoMain must be activated, otherwise the selection effect will not be displayed
@@ -184,11 +208,11 @@ procedure TfrmMain.dlgReplaceFind(Sender: TObject);
 begin
   with Sender as TReplaceDialog do
   begin
-    FFoundPos := PosEx(unicodestring(FindText), unicodestring(memoMain.Lines.Text),
-      FFoundPos + 1);
-    if FFoundPos > 0 then
+    fFoundPos := PosEx(unicodestring(FindText), unicodestring(memoMain.Lines.Text),
+      fFoundPos + 1);
+    if fFoundPos > 0 then
     begin
-      memoMain.SelStart := FFoundPos - 1;
+      memoMain.SelStart := fFoundPos - 1;
       memoMain.SelLength := Length(unicodestring(FindText));
       memoMain.SetFocus;
       // memoMain must be activated, otherwise the selection effect will not be displayed
@@ -244,8 +268,8 @@ begin
     od.Filter := rsFilter;
     if od.Execute then
     begin
-      FileName := od.FileName;
-      LoadFile(FileName);
+      fFileName := od.FileName;
+      LoadFile(fFileName);
       actShowInfo.Execute;
     end;
   finally
@@ -263,9 +287,9 @@ begin
   with dlgReplace do
   begin
     if frEntireScope in Options then
-      FFoundPos := 0
+      fFoundPos := 0
     else
-      FFoundPos := memoMain.SelStart;
+      fFoundPos := memoMain.SelStart;
     Execute;
   end;
 end;
@@ -286,9 +310,9 @@ begin
   with dlgFind do
   begin
     if frEntireScope in Options then  // search form the start
-      FFoundPos := 0
+      fFoundPos := 0
     else
-      FFoundPos := memoMain.SelStart;   // search form actual position
+      fFoundPos := memoMain.SelStart;   // search form actual position
     Execute;
   end;
 end;
@@ -299,17 +323,59 @@ begin
   if dlgFont.Execute then memoMain.Font := dlgFont.Font;
 end;
 
+procedure TfrmMain.actFullScreenExecute(Sender: TObject);
+begin
+  if not fFullScreen then begin
+    Self.WindowState:= wsFullScreen;
+    Self.Menu:= nil;
+    sbMain.Visible:= False;
+  end else begin
+    Self.WindowState:= wsNormal;
+    Self.Menu:= mnuMain;
+    sbMain.Visible:= True;
+  end;
+  fFullScreen:= not fFullScreen;
+end;
+
 procedure TfrmMain.actHandleParamsExecute(Sender: TObject);
 begin
   if ParamCount > 0 then
   begin
     if FileExists(ParamStr(1)) then
     begin
-      FileName := ParamStr(1);
-      LoadFile(FileName);
+      fFileName := ParamStr(1);
+      LoadFile(fFileName);
       actShowInfo.Execute;
     end;
   end;
+end;
+
+procedure TfrmMain.actInsertDateExecute(Sender: TObject);
+begin
+  memoMain.SelText:= DateToStr(Now);
+end;
+
+procedure TfrmMain.actInsertGUIDExecute(Sender: TObject);
+var
+  guid: TGUID;
+begin
+  CreateGUID(guid);
+  memoMain.SelText:= GUIDToString(guid);
+end;
+
+procedure TfrmMain.actInsertTimeExecute(Sender: TObject);
+begin
+  memoMain.SelText:= TimeToStr(Now);
+end;
+
+procedure TfrmMain.actInsertUserNameExecute(Sender: TObject);
+begin
+  memoMain.SelText:= GetLoggedInUserName;
+end;
+
+procedure TfrmMain.actInstertDateTimeExecute(Sender: TObject);
+begin
+  memoMain.SelText:= DateTimeToStr(Now);
 end;
 
 procedure TfrmMain.actLoadOptionsExecute(Sender: TObject);
@@ -331,15 +397,20 @@ end;
 
 procedure TfrmMain.actNewExecute(Sender: TObject);
 begin
-  FileName := '';
+  fFileName := '';
   memoMain.Clear;
-  Encoding := TEncoding.Default;
+  fEncoding := TEncoding.Default;
   actShowInfo.Execute;
 end;
 
 procedure TfrmMain.actCopyExecute(Sender: TObject);
 begin
   memoMain.CopyToClipboard;
+end;
+
+procedure TfrmMain.actAboutExecute(Sender: TObject);
+begin
+  MessageDlg(Application.Title, 'Hello World!', mtInformation, [mbOK], 0);
 end;
 
 procedure TfrmMain.actSaveAsExecute(Sender: TObject);
@@ -350,15 +421,15 @@ begin
   try
     sd.Filter := rsFilter;
     sd.Options := sd.Options + [ofOverwritePrompt];
-    if FileName <> '' then
+    if fFileName <> '' then
     begin
-      sd.InitialDir := ExtractFilePath(FileName);
-      sd.FileName := ExtractFileName(FileName);
+      sd.InitialDir := ExtractFilePath(fFileName);
+      sd.FileName := ExtractFileName(fFileName);
     end;
     if sd.Execute then
     begin
-      FileName := sd.FileName;
-      memoMain.Lines.SaveToFile(FileName, Encoding);
+      fFileName := sd.FileName;
+      memoMain.Lines.SaveToFile(fFileName, fEncoding);
       actShowInfo.Execute;
     end;
   finally
@@ -368,7 +439,7 @@ end;
 
 procedure TfrmMain.actSaveExecute(Sender: TObject);
 begin
-  if FileName <> '' then memoMain.Lines.SaveToFile(FileName)
+  if fFileName <> '' then memoMain.Lines.SaveToFile(fFileName)
   else
     actSaveAs.Execute;
 end;
