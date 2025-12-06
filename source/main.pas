@@ -445,7 +445,8 @@ end;
 procedure TfrmMain.actAboutExecute(Sender: TObject);
 var
   mr: TModalResult;
-{$I litepad_version.inc}
+const
+  {$I litepad_version.inc}
   url = 'https://github.com/faludiz/LitePAD';
 begin
   mr:= QuestionDlg(

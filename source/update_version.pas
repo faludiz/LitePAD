@@ -66,7 +66,6 @@ begin
   end;
 
   try
-    // Bármilyen mélységben megkeressük a VersionInfo-t
     VersionInfo := FindNodeRecursive(Doc.DocumentElement, 'VersionInfo');
     if not Assigned(VersionInfo) then
     begin
@@ -86,7 +85,7 @@ begin
     Minor := GetAttrOrDefault(N, 'Value', '0');
 
     N := FindNodeRecursive(VersionInfo, 'RevisionNr');
-    Revision := GetAttrOrDefault(N, 'Value', '0'); // nálad nincs -> 0
+    Revision := GetAttrOrDefault(N, 'Value', '0'); 
 
     N := FindNodeRecursive(VersionInfo, 'BuildNr');
     Build := GetAttrOrDefault(N, 'Value', '0');
@@ -95,7 +94,7 @@ begin
     AssignFile(F, OutFile);
     Rewrite(F);
     try
-      Writeln(F, 'const APP_VERSION = ''', Major, '.', Minor, '.', Revision, '.', Build, ''';');
+      Writeln(F, 'APP_VERSION = ''', Major, '.', Minor, '.', Revision, '.', Build, ''';');
     finally
       CloseFile(F);
     end;
