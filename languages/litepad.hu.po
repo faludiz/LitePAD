@@ -53,6 +53,11 @@ msgstr "Támogatás"
 msgid "Lines: %d | Line: %d | Col: %d | Encoding: %s"
 msgstr "Sorok száma: %d | Sor: %d | Oszlop: %d | Kódlap: %s"
 
+#: tfrmabout.caption
+msgctxt "tfrmabout.caption"
+msgid "About"
+msgstr "Névjegy"
+
 #: tfrmmain.actabout.caption
 msgctxt "tfrmmain.actabout.caption"
 msgid "About"

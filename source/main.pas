@@ -132,6 +132,7 @@ implementation
 {$R *.lfm}
 
 uses
+  about,
   uhelper,
   LclIntf,
   IniFiles,
@@ -531,16 +532,8 @@ begin
 end;
 
 procedure TfrmMain.actAboutExecute(Sender: TObject);
-var
-  mr: TModalResult;
-const
-  {$I litepad_version.inc}
-  url = 'https://github.com/faludiz/LitePAD';
 begin
-  mr := QuestionDlg(rsAbout, Format(rsAboutInfo,
-    [AppLication.Title, APP_VERSION, 'Zoltan Faludi', url]), mtInformation,
-    [mrOk, mrYesToAll, rsSponsor, 'isDefault'], 0);
-  if mr = mrYesToAll then OpenUrl(url);
+  frmAbout.ShowModal;
 end;
 
 procedure TfrmMain.actSaveOptionsExecute(Sender: TObject);

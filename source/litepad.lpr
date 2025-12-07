@@ -15,7 +15,7 @@ uses
   {$ifdef Windows}
     uDarkStyleParams,
     uMetaDarkStyle,
-    uDarkStyleSchemes
+    uDarkStyleSchemes, about
   {$endif}
   { you can add units after this };
 
@@ -34,6 +34,7 @@ begin
   {$endif}
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmAbout, frmAbout);
   Application.Run;
 end.
 

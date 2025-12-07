@@ -215,6 +215,7 @@ object frmMain: TfrmMain
     end
     object actAbout: TAction
       Caption = 'About'
+      ShortCut = 112
       OnExecute = actAboutExecute
     end
     object actInsertDate: TAction

@@ -39,6 +39,11 @@ msgstr ""
 msgid "Lines: %d | Line: %d | Col: %d | Encoding: %s"
 msgstr ""
 
+#: tfrmabout.caption
+msgctxt "tfrmabout.caption"
+msgid "About"
+msgstr ""
+
 #: tfrmmain.actabout.caption
 msgctxt "tfrmmain.actabout.caption"
 msgid "About"
