@@ -1,5 +1,7 @@
 # LitePAD
 
+<img width="714" height="623" alt="LitePAD" src="https://github.com/user-attachments/assets/afede533-a39f-4772-a5a6-ff059e18d7da" />
+
 ## A Simple Text Editor
 
 - No tabs: single file per window
