@@ -22,6 +22,10 @@ msgstr ""
 msgid "Jump to line:"
 msgstr ""
 
+#: main.rsmsgsavequery
+msgid "Do You want to save the changes?"
+msgstr ""
+
 #: main.rsnomoreresults
 msgid "No more results"
 msgstr ""

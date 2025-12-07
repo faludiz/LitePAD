@@ -9,7 +9,7 @@ object frmMain: TfrmMain
   ClientWidth = 640
   Menu = mnuMain
   LCLVersion = '4.4.0.0'
-  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDropFiles = FormDropFiles
   object sbMain: TStatusBar
@@ -34,6 +34,7 @@ object frmMain: TfrmMain
     ParentFont = False
     ScrollBars = ssAutoBoth
     TabOrder = 1
+    WantTabs = True
   end
   object mnuMain: TMainMenu
     Left = 96

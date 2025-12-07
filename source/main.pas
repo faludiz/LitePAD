@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  Menus, ActnList, ExtCtrls;
+  Menus, ActnList, ExtCtrls, MD5;
 
 type
 
@@ -104,7 +104,7 @@ type
     procedure dlgFindFind(Sender: TObject);
     procedure dlgReplaceFind(Sender: TObject);
     procedure dlgReplaceReplace(Sender: TObject);
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure tmrMainTimer(Sender: TObject);
@@ -115,7 +115,11 @@ type
     fFoundPos: integer;
     fFullScreen: boolean;
     fFontSize: integer;
+    fMD5: TMD5Digest;
+    function HandleChanges: boolean;
     procedure LoadFile(const fn: string);
+    function SaveFile: boolean;
+    function Changed: boolean;
   public
 
   end;
@@ -141,6 +145,7 @@ resourcestring
   rsAboutInfo = '%s v%s' + #10 + '© %s' + #10 + 'More Info: %s';
   rsJumpTo = 'Jump to line:';
   rsSponsor = 'Sponsor';
+  rsMsgSaveQuery = 'Do You want to save the changes?';
 
 const
   keyLeft = 'window.left';
@@ -157,13 +162,82 @@ procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   actLoadOptions.Execute;
   fFullScreen := False;
+  memoMain.Clear;
+  fMD5 := MD5String(memoMain.Text);
   actNew.Execute;
   actShowInfo.Execute;
   actHandleParams.Execute;
 end;
 
+function TfrmMain.HandleChanges: boolean;
+var
+  mr: TModalResult;
+begin
+  Result := True;
+  if Changed then
+  begin
+    mr := MessageDlg(Application.Title, rsMsgSaveQuery, mtConfirmation,
+      [mbYes, mbNo, mbCancel], 0);
+    if mr = mrYes then
+    begin
+      Result := SaveFile;
+    end;
+    if mr = mrNo then
+    begin
+      Result := True;
+    end;
+    if mr = mrCancel then
+    begin
+      Result := False;
+      Exit;
+    end;
+  end;
+end;
+
+procedure TfrmMain.actNewExecute(Sender: TObject);
+begin
+  HandleChanges;
+  memoMain.Clear;
+  fFileName := '';
+  fMD5 := MD5String(memoMain.Text);
+  fEncoding := TEncoding.Default;
+  actShowInfo.Execute;
+end;
+
+procedure TfrmMain.actOpenExecute(Sender: TObject);
+var
+  od: TOpenDialog;
+begin
+  HandleChanges;
+  od := TOpenDialog.Create(Self);
+  try
+    od.Filter := rsFilter;
+    if od.Execute then
+    begin
+      fFileName := od.FileName;
+      LoadFile(fFileName);
+      actShowInfo.Execute;
+    end;
+  finally
+    od.Free;
+  end;
+end;
+
+procedure TfrmMain.actSaveAsExecute(Sender: TObject);
+begin
+  SaveFile;
+end;
+
+procedure TfrmMain.actSaveExecute(Sender: TObject);
+begin
+  if fFileName <> '' then memoMain.Lines.SaveToFile(fFileName)
+  else
+    actSaveAs.Execute;
+end;
+
 procedure TfrmMain.FormDropFiles(Sender: TObject; const FileNames: array of string);
 begin
+  if not HandleChanges then Exit;
   fFileName := FileNames[0];
   LoadFile(fFileName);
   actShowInfo.Execute;
@@ -184,14 +258,52 @@ procedure TfrmMain.LoadFile(const fn: string);
 begin
   fEncoding := DetectFileEncoding(fn);
   memoMain.Lines.LoadFromFile(fn, fEncoding);
+  fMD5 := MD5String(memoMain.Text);
   fFileName := fn;
+end;
+
+function TfrmMain.SaveFile: boolean;
+var
+  sd: TSaveDialog;
+begin
+  Result := False;
+  sd := TSaveDialog.Create(Self);
+  try
+    sd.Filter := rsFilter;
+    sd.Options := sd.Options + [ofOverwritePrompt];
+    if fFileName <> '' then
+    begin
+      sd.InitialDir := ExtractFilePath(fFileName);
+      sd.FileName := ExtractFileName(fFileName);
+    end;
+    if sd.Execute then
+    begin
+      fFileName := sd.FileName;
+      memoMain.Lines.SaveToFile(fFileName, fEncoding);
+      actShowInfo.Execute;
+      Result := True;
+    end;
+  finally
+    sd.Free;
+  end;
+end;
+
+function TfrmMain.Changed: boolean;
+begin
+  Result := True;
+  if not Assigned(memoMain) then Exit;
+  Result := not MD5Match(MD5String(memoMain.Text), fMD5);
 end;
 
 procedure TfrmMain.actShowInfoExecute(Sender: TObject);
 var
   line, col: integer;
+  changeFlag: string[1];
 begin
-  Caption := format('%s - [ %s ]', [Application.Title, fFileName]);
+  if Changed then changeFlag := '*'
+  else
+    changeFlag := '';
+  Caption := format('%s - [ %s%s ]', [Application.Title, changeFlag, fFileName]);
   line := memoMain.CaretPos.Y + 1;
   col := memoMain.CaretPos.X + 1;
   sbMain.SimpleText := format(rsStatusMsg, [memoMain.Lines.Count,
@@ -270,28 +382,9 @@ begin
     ShowMessage(rsNoMoreResults);
 end;
 
-procedure TfrmMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
-  actSaveOptions.Execute;
-  CloseAction := caFree;
-end;
-
-procedure TfrmMain.actOpenExecute(Sender: TObject);
-var
-  od: TOpenDialog;
-begin
-  od := TOpenDialog.Create(Self);
-  try
-    od.Filter := rsFilter;
-    if od.Execute then
-    begin
-      fFileName := od.FileName;
-      LoadFile(fFileName);
-      actShowInfo.Execute;
-    end;
-  finally
-    od.Free;
-  end;
+  CanClose := HandleChanges;
 end;
 
 procedure TfrmMain.actPasteExecute(Sender: TObject);
@@ -432,14 +525,6 @@ begin
   end;
 end;
 
-procedure TfrmMain.actNewExecute(Sender: TObject);
-begin
-  fFileName := '';
-  memoMain.Clear;
-  fEncoding := TEncoding.Default;
-  actShowInfo.Execute;
-end;
-
 procedure TfrmMain.actCopyExecute(Sender: TObject);
 begin
   memoMain.CopyToClipboard;
@@ -456,37 +541,6 @@ begin
     [AppLication.Title, APP_VERSION, 'Zoltan Faludi', url]), mtInformation,
     [mrOk, mrYesToAll, rsSponsor, 'isDefault'], 0);
   if mr = mrYesToAll then OpenUrl(url);
-end;
-
-procedure TfrmMain.actSaveAsExecute(Sender: TObject);
-var
-  sd: TSaveDialog;
-begin
-  sd := TSaveDialog.Create(Self);
-  try
-    sd.Filter := rsFilter;
-    sd.Options := sd.Options + [ofOverwritePrompt];
-    if fFileName <> '' then
-    begin
-      sd.InitialDir := ExtractFilePath(fFileName);
-      sd.FileName := ExtractFileName(fFileName);
-    end;
-    if sd.Execute then
-    begin
-      fFileName := sd.FileName;
-      memoMain.Lines.SaveToFile(fFileName, fEncoding);
-      actShowInfo.Execute;
-    end;
-  finally
-    sd.Free;
-  end;
-end;
-
-procedure TfrmMain.actSaveExecute(Sender: TObject);
-begin
-  if fFileName <> '' then memoMain.Lines.SaveToFile(fFileName)
-  else
-    actSaveAs.Execute;
 end;
 
 procedure TfrmMain.actSaveOptionsExecute(Sender: TObject);

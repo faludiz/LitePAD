@@ -36,6 +36,10 @@ msgstr "Szövegfájlok (*.txt)|*.txt;*.TXT|Minden fákl (*.*)|*.*"
 msgid "Jump to line:"
 msgstr "Ugrás erre a sorra:"
 
+#: main.rsmsgsavequery
+msgid "Do You want to save the changes?"
+msgstr "Szeretnéd menteni a változtatásokat?"
+
 #: main.rsnomoreresults
 msgid "No more results"
 msgstr "Nincs több találat"
@@ -153,4 +157,3 @@ msgstr "Sz&erkesztés"
 #: tfrmmain.wordwrap.caption
 msgid "Word Wrap"
 msgstr "Sortörés"
-
