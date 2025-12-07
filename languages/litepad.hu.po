@@ -12,22 +12,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: hu_HU\n"
 
-#: main.rsabout
-msgctxt "main.rsabout"
-msgid "About"
-msgstr "Névjegy"
-
-#: main.rsaboutinfo
-#, object-pascal-format
-msgid ""
-"%s v%s\n"
-"© %s\n"
-"More Info: %s"
-msgstr ""
-"%s v%s\n"
-"© %s\n"
-"További infó: %s"
-
 #: main.rsfilter
 msgid "Text files (*.txt)|*.txt;*.TXT|All files (*.*)|*.*"
 msgstr "Szövegfájlok (*.txt)|*.txt;*.TXT|Minden fákl (*.*)|*.*"
@@ -44,9 +28,9 @@ msgstr "Szeretnéd menteni a változtatásokat?"
 msgid "No more results"
 msgstr "Nincs több találat"
 
-#: main.rssponsor
-msgid "Sponsor"
-msgstr "Támogatás"
+#: main.rsshortcutdone
+msgid "ShoertCut done"
+msgstr ""
 
 #: main.rsstatusmsg
 #, object-pascal-format
@@ -111,6 +95,10 @@ msgstr "Dát&um és idő"
 msgid "&Jump..."
 msgstr "&Ugrás..."
 
+#: tfrmmain.actlinuxshortcut.caption
+msgid "Linux ShortCut"
+msgstr ""
+
 #: tfrmmain.actnew.caption
 msgid "&New"
 msgstr "Ú&j"
@@ -162,3 +150,4 @@ msgstr "Sz&erkesztés"
 #: tfrmmain.wordwrap.caption
 msgid "Word Wrap"
 msgstr "Sortörés"
+

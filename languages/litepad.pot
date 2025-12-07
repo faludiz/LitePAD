@@ -1,19 +1,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: main.rsabout
-msgctxt "main.rsabout"
-msgid "About"
-msgstr ""
-
-#: main.rsaboutinfo
-#, object-pascal-format
-msgid ""
-"%s v%s\n"
-"© %s\n"
-"More Info: %s"
-msgstr ""
-
 #: main.rsfilter
 msgid "Text files (*.txt)|*.txt;*.TXT|All files (*.*)|*.*"
 msgstr ""
@@ -30,8 +17,8 @@ msgstr ""
 msgid "No more results"
 msgstr ""
 
-#: main.rssponsor
-msgid "Sponsor"
+#: main.rsshortcutdone
+msgid "ShoertCut done"
 msgstr ""
 
 #: main.rsstatusmsg
@@ -95,6 +82,10 @@ msgstr ""
 
 #: tfrmmain.actjump.caption
 msgid "&Jump..."
+msgstr ""
+
+#: tfrmmain.actlinuxshortcut.caption
+msgid "Linux ShortCut"
 msgstr ""
 
 #: tfrmmain.actnew.caption

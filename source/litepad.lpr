@@ -15,16 +15,16 @@ uses
   {$ifdef Windows}
     uDarkStyleParams,
     uMetaDarkStyle,
-    uDarkStyleSchemes, about
+    uDarkStyleSchemes,
   {$endif}
-  { you can add units after this };
+  { you can add units after this }
+  about;
 
 {$R *.res}
 
 begin
   RequireDerivedFormResource:=True;
   Application.Title:='LitePAD';
-  Application.Scaled:=True;
   {$PUSH}{$WARN 5044 OFF}
   Application.MainFormOnTaskbar:=True;
   {$POP}

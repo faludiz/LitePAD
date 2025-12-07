@@ -14,14 +14,14 @@ object frmMain: TfrmMain
   OnDropFiles = FormDropFiles
   object sbMain: TStatusBar
     Left = 0
-    Height = 23
-    Top = 457
+    Height = 19
+    Top = 461
     Width = 640
     Panels = <>
   end
   object memoMain: TMemo
     Left = 0
-    Height = 457
+    Height = 461
     Top = 0
     Width = 640
     Align = alClient
@@ -94,6 +94,9 @@ object frmMain: TfrmMain
         Caption = 'Word Wrap'
         Checked = True
         OnClick = WordWrapClick
+      end
+      object MenuItem24: TMenuItem
+        Action = actLinuxShortCut
       end
     end
     object MenuItem17: TMenuItem
@@ -260,6 +263,10 @@ object frmMain: TfrmMain
     object actFontSizeDefault: TAction
       ShortCut = 16480
       OnExecute = actFontSizeDefaultExecute
+    end
+    object actLinuxShortCut: TAction
+      Caption = 'Linux ShortCut'
+      OnExecute = actLinuxShortCutExecute
     end
   end
   object tmrMain: TIdleTimer

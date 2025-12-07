@@ -26,6 +26,7 @@ type
     actFontSizeUp: TAction;
     actFontSizeDown: TAction;
     actFontSizeDefault: TAction;
+    actLinuxShortCut: TAction;
     actJump: TAction;
     actLoadOptions: TAction;
     actSaveOptions: TAction;
@@ -57,6 +58,7 @@ type
     MenuItem21: TMenuItem;
     MenuItem22: TMenuItem;
     MenuItem23: TMenuItem;
+    MenuItem24: TMenuItem;
     WordWrap: TMenuItem;
     Separator2: TMenuItem;
     tmrMain: TIdleTimer;
@@ -91,6 +93,7 @@ type
     procedure actFontSizeDownExecute(Sender: TObject);
     procedure actFontSizeDefaultExecute(Sender: TObject);
     procedure actJumpExecute(Sender: TObject);
+    procedure actLinuxShortCutExecute(Sender: TObject);
     procedure actLoadOptionsExecute(Sender: TObject);
     procedure actNewExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
@@ -142,11 +145,9 @@ resourcestring
   rsFilter = 'Text files (*.txt)|*.txt;*.TXT|All files (*.*)|*.*';
   rsStatusMsg = 'Lines: %d | Line: %d | Col: %d | Encoding: %s';
   rsNoMoreResults = 'No more results';
-  rsAbout = 'About';
-  rsAboutInfo = '%s v%s' + #10 + '© %s' + #10 + 'More Info: %s';
   rsJumpTo = 'Jump to line:';
-  rsSponsor = 'Sponsor';
   rsMsgSaveQuery = 'Do You want to save the changes?';
+  rsShortCutDone = 'ShoertCut done';
 
 const
   keyLeft = 'window.left';
@@ -168,6 +169,12 @@ begin
   actNew.Execute;
   actShowInfo.Execute;
   actHandleParams.Execute;
+  {$ifdef linux}
+  actLinuxShortCut.Visible := True;
+  {$endif}
+  {$ifdef windows}
+  actLinuxShortCut.Visible := False;
+  {$endif}
 end;
 
 function TfrmMain.HandleChanges: boolean;
@@ -386,6 +393,7 @@ end;
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
   CanClose := HandleChanges;
+  actSaveOptIons.Execute;
 end;
 
 procedure TfrmMain.actPasteExecute(Sender: TObject);
@@ -518,12 +526,44 @@ begin
     if (jump < 1) or (jump > memoMain.Lines.Count) then Exit;
     Pos := 0;
     for i := 0 to jump - 2 do
-      Inc(Pos, Length(memoMain.Lines[i]) + LineEnding.Length);
+      Inc(Pos, Length(memoMain.Lines[i]) + string(LineEnding).Length);
     memoMain.SelStart := pos;
     memoMain.SelLength := 0;
     memoMain.SelText := memoMain.SelText;
     memoMain.SetFocus;
   end;
+end;
+
+procedure TfrmMain.actLinuxShortCutExecute(Sender: TObject);
+var
+  ini:tinifile;
+  inifn:string;
+  inipath:string;
+  exefn:string;
+  exepath:string;
+  homedir:string;
+const
+   section='Desktop Entry';
+begin
+  homedir:=IncludeTrailingPathDelimiter(GetEnvironmentVariable('HOME'));
+  inipath:=IncludeTrailingPathDelimiter(homedir + '.local/share/applications');
+  forcedirectories(inipath);
+  inifn:='litepad.desktop';
+  exefn:=paramstr(0);
+  exepath:=IncludeTrailingPathDelimiter(extractfilepath(exefn));
+  ini:=tinifile.Create(inipath + inifn);
+  ini.WriteString(section, 'Name','LitePAD');
+  ini.WriteString(section, 'Comment', 'A Simple Text Editor');
+  ini.WriteString(section, 'Terminal', 'false');
+  ini.WriteString(section, 'Type', 'Application');
+  ini.WriteString(section, 'Categories', 'Office, Utilities');
+  ini.WriteString(section, 'Keywords', 'text;editor;');
+  ini.WriteString(section, 'Path', exepath);
+  ini.WriteString(section, 'Exec', exefn);
+  ini.WriteString(section, 'Icon', exepath + 'litepad_96.png');
+  ini.UpdateFile;
+  ini.Free;
+  ShowMessage(rsShortCutDone);
 end;
 
 procedure TfrmMain.actCopyExecute(Sender: TObject);
