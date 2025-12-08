@@ -221,9 +221,17 @@ end;
 
 procedure TfrmMain.actNewWindowExecute(Sender: TObject);
 var
-  strOut: string;
+  proc: TProcess;
 begin
-  Process.RunCommand(ParamStr(0), strOut);
+  proc := TProcess.Create(nil);
+  try
+    proc.Executable := ParamStr(0);
+    proc.Options := [poNoConsole, poDetached];
+    proc.ShowWindow := swoShowNormal;
+    proc.Execute;
+  finally
+    proc.Free;
+  end;
 end;
 
 procedure TfrmMain.actOpenExecute(Sender: TObject);
@@ -272,6 +280,7 @@ begin
   if WheelDelta > 0 then actFontSizeUp.Execute
   else
     actFontSizeDown.Execute;
+  Handled := True;
 end;
 
 procedure TfrmMain.tmrMainTimer(Sender: TObject);
