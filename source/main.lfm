@@ -14,16 +14,16 @@ object frmMain: TfrmMain
   OnDropFiles = FormDropFiles
   object sbMain: TStatusBar
     Left = 0
-    Height = 19
-    Top = 461
+    Height = 23
+    Top = 457
     Width = 640
     Panels = <>
   end
   object memoMain: TMemo
-    Left = 0
-    Height = 461
+    Left = 8
+    Height = 457
     Top = 0
-    Width = 640
+    Width = 632
     Align = alClient
     BorderStyle = bsNone
     Font.Pitch = fpFixed
@@ -35,6 +35,18 @@ object frmMain: TfrmMain
     ScrollBars = ssAutoBoth
     TabOrder = 1
     WantTabs = True
+  end
+  object pnlLeftSpace: TPanel
+    Left = 0
+    Height = 457
+    Top = 0
+    Width = 8
+    Align = alLeft
+    BevelOuter = bvNone
+    Color = clWindow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 2
   end
   object mnuMain: TMainMenu
     Left = 96

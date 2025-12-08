@@ -59,6 +59,7 @@ type
     MenuItem22: TMenuItem;
     MenuItem23: TMenuItem;
     MenuItem24: TMenuItem;
+    pnlLeftSpace: TPanel;
     WordWrap: TMenuItem;
     Separator2: TMenuItem;
     tmrMain: TIdleTimer;
@@ -442,20 +443,16 @@ begin
 end;
 
 procedure TfrmMain.actFullScreenExecute(Sender: TObject);
+var
+  i: integer;
 begin
-  if not fFullScreen then
-  begin
-    Self.WindowState := wsFullScreen;
-    Self.Menu := nil;
-    sbMain.Visible := False;
-  end
-  else
-  begin
-    Self.WindowState := wsNormal;
-    Self.Menu := mnuMain;
-    sbMain.Visible := True;
-  end;
   fFullScreen := not fFullScreen;
+  for i := 0 to mnuMain.Items.Count - 1 do
+    mnuMain.Items[i].Visible := not mnuMain.Items[i].Visible;
+  sbMain.Visible := not sbMain.Visible;
+  if fFullScreen then Self.WindowState := wsFullScreen
+  else
+    Self.WindowState := wsNormal;
 end;
 
 procedure TfrmMain.actHandleParamsExecute(Sender: TObject);
@@ -536,23 +533,23 @@ end;
 
 procedure TfrmMain.actLinuxShortCutExecute(Sender: TObject);
 var
-  ini:tinifile;
-  inifn:string;
-  inipath:string;
-  exefn:string;
-  exepath:string;
-  homedir:string;
+  ini: tinifile;
+  inifn: string;
+  inipath: string;
+  exefn: string;
+  exepath: string;
+  homedir: string;
 const
-   section='Desktop Entry';
+  section = 'Desktop Entry';
 begin
-  homedir:=IncludeTrailingPathDelimiter(GetEnvironmentVariable('HOME'));
-  inipath:=IncludeTrailingPathDelimiter(homedir + '.local/share/applications');
+  homedir := IncludeTrailingPathDelimiter(GetEnvironmentVariable('HOME'));
+  inipath := IncludeTrailingPathDelimiter(homedir + '.local/share/applications');
   forcedirectories(inipath);
-  inifn:='litepad.desktop';
-  exefn:=paramstr(0);
-  exepath:=IncludeTrailingPathDelimiter(extractfilepath(exefn));
-  ini:=tinifile.Create(inipath + inifn);
-  ini.WriteString(section, 'Name','LitePAD');
+  inifn := 'litepad.desktop';
+  exefn := ParamStr(0);
+  exepath := IncludeTrailingPathDelimiter(extractfilepath(exefn));
+  ini := tinifile.Create(inipath + inifn);
+  ini.WriteString(section, 'Name', 'LitePAD');
   ini.WriteString(section, 'Comment', 'A Simple Text Editor');
   ini.WriteString(section, 'Terminal', 'false');
   ini.WriteString(section, 'Type', 'Application');
