@@ -25,5 +25,6 @@
 {"hash":2804180,"name":"tfrmmain.actinsertguid.caption","sourcebytes":[38,71,85,73,68],"value":"&GUID"},
 {"hash":2869698,"name":"tfrmmain.actinsertusername.caption","sourcebytes":[38,85,115,101,114],"value":"&User"},
 {"hash":29635518,"name":"tfrmmain.actjump.caption","sourcebytes":[38,74,117,109,112,46,46,46],"value":"&Jump..."},
-{"hash":255142500,"name":"tfrmmain.actlinuxshortcut.caption","sourcebytes":[76,105,110,117,120,32,83,104,111,114,116,67,117,116],"value":"Linux ShortCut"}
+{"hash":255142500,"name":"tfrmmain.actlinuxshortcut.caption","sourcebytes":[76,105,110,117,120,32,83,104,111,114,116,67,117,116],"value":"Linux ShortCut"},
+{"hash":138688974,"name":"tfrmmain.actnewwindow.caption","sourcebytes":[78,101,119,32,38,87,105,110,100,111,119,46,46,46],"value":"New &Window..."}
 ]}

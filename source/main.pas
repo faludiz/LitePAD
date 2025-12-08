@@ -26,6 +26,7 @@ type
     actFontSizeUp: TAction;
     actFontSizeDown: TAction;
     actFontSizeDefault: TAction;
+    actNewWindow: TAction;
     actLinuxShortCut: TAction;
     actJump: TAction;
     actLoadOptions: TAction;
@@ -59,6 +60,7 @@ type
     MenuItem22: TMenuItem;
     MenuItem23: TMenuItem;
     MenuItem24: TMenuItem;
+    MenuItem25: TMenuItem;
     pnlLeftSpace: TPanel;
     WordWrap: TMenuItem;
     Separator2: TMenuItem;
@@ -97,6 +99,7 @@ type
     procedure actLinuxShortCutExecute(Sender: TObject);
     procedure actLoadOptionsExecute(Sender: TObject);
     procedure actNewExecute(Sender: TObject);
+    procedure actNewWindowExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actReplaceExecute(Sender: TObject);
@@ -138,6 +141,7 @@ implementation
 uses
   about,
   uhelper,
+  Process,
   LclIntf,
   IniFiles,
   StrUtils;
@@ -148,7 +152,7 @@ resourcestring
   rsNoMoreResults = 'No more results';
   rsJumpTo = 'Jump to line:';
   rsMsgSaveQuery = 'Do You want to save the changes?';
-  rsShortCutDone = 'ShoertCut done';
+  rsShortCutDone = 'ShortCut done';
 
 const
   keyLeft = 'window.left';
@@ -211,6 +215,13 @@ begin
   fMD5 := MD5String(memoMain.Text);
   fEncoding := TEncoding.Default;
   actShowInfo.Execute;
+end;
+
+procedure TfrmMain.actNewWindowExecute(Sender: TObject);
+var
+  strOut: string;
+begin
+  Process.RunCommand(ParamStr(0), strOut);
 end;
 
 procedure TfrmMain.actOpenExecute(Sender: TObject);

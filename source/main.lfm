@@ -56,6 +56,9 @@ object frmMain: TfrmMain
       object MenuItem11: TMenuItem
         Action = actNew
       end
+      object MenuItem25: TMenuItem
+        Action = actNewWindow
+      end
       object MenuItem2: TMenuItem
         Action = actOpen
       end
@@ -279,6 +282,12 @@ object frmMain: TfrmMain
     object actLinuxShortCut: TAction
       Caption = 'Linux ShortCut'
       OnExecute = actLinuxShortCutExecute
+    end
+    object actNewWindow: TAction
+      Category = 'File'
+      Caption = 'New &Window...'
+      ShortCut = 16471
+      OnExecute = actNewWindowExecute
     end
   end
   object tmrMain: TIdleTimer

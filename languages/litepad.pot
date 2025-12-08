@@ -18,7 +18,7 @@ msgid "No more results"
 msgstr ""
 
 #: main.rsshortcutdone
-msgid "ShoertCut done"
+msgid "ShortCut done"
 msgstr ""
 
 #: main.rsstatusmsg
@@ -90,6 +90,10 @@ msgstr ""
 
 #: tfrmmain.actnew.caption
 msgid "&New"
+msgstr ""
+
+#: tfrmmain.actnewwindow.caption
+msgid "New &Window..."
 msgstr ""
 
 #: tfrmmain.actopen.caption

@@ -29,8 +29,8 @@ msgid "No more results"
 msgstr "Nincs több találat"
 
 #: main.rsshortcutdone
-msgid "ShoertCut done"
-msgstr ""
+msgid "ShortCut done"
+msgstr "Parancsikon kész"
 
 #: main.rsstatusmsg
 #, object-pascal-format
@@ -97,11 +97,15 @@ msgstr "&Ugrás..."
 
 #: tfrmmain.actlinuxshortcut.caption
 msgid "Linux ShortCut"
-msgstr ""
+msgstr "Linux parancsikon"
 
 #: tfrmmain.actnew.caption
 msgid "&New"
 msgstr "Ú&j"
+
+#: tfrmmain.actnewwindow.caption
+msgid "New &Window..."
+msgstr "Új &ablak..."
 
 #: tfrmmain.actopen.caption
 msgid "&Open..."
@@ -150,4 +154,3 @@ msgstr "Sz&erkesztés"
 #: tfrmmain.wordwrap.caption
 msgid "Word Wrap"
 msgstr "Sortörés"
-
