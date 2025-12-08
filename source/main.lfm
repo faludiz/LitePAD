@@ -311,8 +311,8 @@ object frmMain: TfrmMain
     Top = 168
   end
   object dlgFont: TFontDialog
-    MinFontSize = 0
-    MaxFontSize = 0
+    MinFontSize = 4
+    MaxFontSize = 72
     Options = []
     Left = 168
     Top = 40

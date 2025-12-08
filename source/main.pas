@@ -509,11 +509,13 @@ end;
 
 procedure TfrmMain.actFontSizeUpExecute(Sender: TObject);
 begin
+  if memoMain.Font.Size >= 72 then Exit;
   memoMain.Font.Size := memoMain.Font.Size + 1;
 end;
 
 procedure TfrmMain.actFontSizeDownExecute(Sender: TObject);
 begin
+  if memoMain.Font.Size <= 4 then Exit;
   memoMain.Font.Size := memoMain.Font.Size - 1;
 end;
 
