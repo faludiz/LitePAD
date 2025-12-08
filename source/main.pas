@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  Menus, ActnList, ExtCtrls, MD5;
+  Menus, ActnList, ExtCtrls, MD5, Types;
 
 type
 
@@ -114,6 +114,8 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
+    procedure memoMainMouseWheel(Sender: TObject; Shift: TShiftState;
+      WheelDelta: integer; MousePos: TPoint; var Handled: boolean);
     procedure tmrMainTimer(Sender: TObject);
     procedure WordWrapClick(Sender: TObject);
   private
@@ -261,6 +263,15 @@ begin
   fFileName := FileNames[0];
   LoadFile(fFileName);
   actShowInfo.Execute;
+end;
+
+procedure TfrmMain.memoMainMouseWheel(Sender: TObject; Shift: TShiftState;
+  WheelDelta: integer; MousePos: TPoint; var Handled: boolean);
+begin
+  if Shift <> [ssCtrl] then Exit;
+  if WheelDelta > 0 then actFontSizeUp.Execute
+  else
+    actFontSizeDown.Execute;
 end;
 
 procedure TfrmMain.tmrMainTimer(Sender: TObject);

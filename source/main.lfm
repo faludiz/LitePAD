@@ -35,6 +35,7 @@ object frmMain: TfrmMain
     ScrollBars = ssAutoBoth
     TabOrder = 1
     WantTabs = True
+    OnMouseWheel = memoMainMouseWheel
   end
   object pnlLeftSpace: TPanel
     Left = 0

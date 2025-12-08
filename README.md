@@ -13,7 +13,7 @@
 
 ## Supported functions
 
-- File: New, Open, Save, Save As
+- File: New, New Window, Open, Save, Save As
 - Encoding: Auto detect for open and save
 - Edit: Cut, Copy, Paste, Find, Replace, Jump, Set font, Word wrap
 - Insert: Date, Time, Date and Time, GUID, User
