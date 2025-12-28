@@ -2,3 +2,6 @@ bin
 lib
 *.lps
 source/litepad.lps
+CLAUDE.md
+nul
+.claude/

@@ -1,1 +1,1 @@
-APP_VERSION = '25.12.0.7';
+APP_VERSION = '25.12.0.8';

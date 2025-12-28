@@ -20,6 +20,11 @@ msgstr "Szövegfájlok (*.txt)|*.txt;*.TXT|Minden fákl (*.*)|*.*"
 msgid "Jump to line:"
 msgstr "Ugrás erre a sorra:"
 
+#: main.rsloadingfile
+#, object-pascal-format
+msgid "Loading: %s"
+msgstr "Betöltés: %s"
+
 #: main.rsmsgsavequery
 msgid "Do You want to save the changes?"
 msgstr "Szeretnéd menteni a változtatásokat?"

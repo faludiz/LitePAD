@@ -62,11 +62,14 @@ begin
 end;
 
 function DetectFileEncoding(const FileName: string): TEncoding;
+const
+  MAX_SAMPLE_SIZE = 65536; // 64 KB sample for UTF-8 detection
 var
   FS: TFileStream;
   Buffer: array[0..2] of byte;
   BytesRead: integer;
   S: rawbytestring;
+  SampleSize: int64;
 begin
   Result := TEncoding.ANSI; // default
   FS := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
@@ -93,12 +96,15 @@ begin
       Exit;
     end;
 
-    // if no BOM -> read and check if valid UTF-8
+    // if no BOM -> read sample and check if valid UTF-8
     FS.Position := 0;
-    SetLength(S, FS.Size);
-    if FS.Size > 0 then
+    SampleSize := FS.Size;
+    if SampleSize > MAX_SAMPLE_SIZE then
+      SampleSize := MAX_SAMPLE_SIZE;
+    SetLength(S, SampleSize);
+    if SampleSize > 0 then
     begin
-      FS.ReadBuffer(S[1], FS.Size);
+      FS.ReadBuffer(S[1], SampleSize);
       if IsValidUTF8(S) then
         Result := TEncoding.UTF8
       else

@@ -155,6 +155,7 @@ resourcestring
   rsJumpTo = 'Jump to line:';
   rsMsgSaveQuery = 'Do You want to save the changes?';
   rsShortCutDone = 'ShortCut done';
+  rsLoadingFile = 'Loading: %s';
 
 const
   keyLeft = 'window.left';
@@ -166,23 +167,6 @@ const
   keyFontStyle = 'font.style';
 
   { TfrmMain }
-
-procedure TfrmMain.FormCreate(Sender: TObject);
-begin
-  actLoadOptions.Execute;
-  fFullScreen := False;
-  memoMain.Clear;
-  fMD5 := MD5String(memoMain.Text);
-  actNew.Execute;
-  actShowInfo.Execute;
-  actHandleParams.Execute;
-  {$ifdef linux}
-  actLinuxShortCut.Visible := True;
-  {$endif}
-  {$ifdef windows}
-  actLinuxShortCut.Visible := False;
-  {$endif}
-end;
 
 function TfrmMain.HandleChanges: boolean;
 var
@@ -211,7 +195,7 @@ end;
 
 procedure TfrmMain.actNewExecute(Sender: TObject);
 begin
-  HandleChanges;
+  if not HandleChanges then Exit;
   memoMain.Clear;
   fFileName := '';
   fMD5 := MD5String(memoMain.Text);
@@ -238,7 +222,7 @@ procedure TfrmMain.actOpenExecute(Sender: TObject);
 var
   od: TOpenDialog;
 begin
-  HandleChanges;
+  if not HandleChanges then Exit;
   od := TOpenDialog.Create(Self);
   try
     od.Filter := rsFilter;
@@ -259,8 +243,21 @@ begin
 end;
 
 procedure TfrmMain.actSaveExecute(Sender: TObject);
+var
+  sl: TStringList;
 begin
-  if fFileName <> '' then memoMain.Lines.SaveToFile(fFileName)
+  if fFileName <> '' then
+  begin
+    sl := TStringList.Create;
+    try
+      sl.Text := memoMain.Text;
+      sl.SaveToFile(fFileName, fEncoding);
+    finally
+      sl.Free;
+    end;
+    fMD5 := MD5String(memoMain.Text);
+    actShowInfo.Execute;
+  end
   else
     actSaveAs.Execute;
 end;
@@ -296,15 +293,19 @@ end;
 
 procedure TfrmMain.LoadFile(const fn: string);
 begin
+  sbMain.SimpleText := Format(rsLoadingFile, [fn]);
+  Application.ProcessMessages;
   fEncoding := DetectFileEncoding(fn);
   memoMain.Lines.LoadFromFile(fn, fEncoding);
   fMD5 := MD5String(memoMain.Text);
   fFileName := fn;
+  actShowInfo.Execute;
 end;
 
 function TfrmMain.SaveFile: boolean;
 var
   sd: TSaveDialog;
+  sl: TStringList;
 begin
   Result := False;
   sd := TSaveDialog.Create(Self);
@@ -319,7 +320,14 @@ begin
     if sd.Execute then
     begin
       fFileName := sd.FileName;
-      memoMain.Lines.SaveToFile(fFileName, fEncoding);
+      sl := TStringList.Create;
+      try
+        sl.Text := memoMain.Text;
+        sl.SaveToFile(fFileName, fEncoding);
+      finally
+        sl.Free;
+      end;
+      fMD5 := MD5String(memoMain.Text);
       actShowInfo.Execute;
       Result := True;
     end;
@@ -337,17 +345,39 @@ end;
 
 procedure TfrmMain.actShowInfoExecute(Sender: TObject);
 var
-  line, col: integer;
+  line, col, lineCount: integer;
   changeFlag: string[1];
+  i, cursorPos, lastLineStart: integer;
+  txt: string;
 begin
   if Changed then changeFlag := '*'
   else
     changeFlag := '';
   Caption := format('%s - [ %s%s ]', [Application.Title, changeFlag, fFileName]);
-  line := memoMain.CaretPos.Y + 1;
-  col := memoMain.CaretPos.X + 1;
-  sbMain.SimpleText := format(rsStatusMsg, [memoMain.Lines.Count,
-    line, col, fEncoding.EncodingName]);
+
+  txt := memoMain.Text;
+  cursorPos := memoMain.SelStart;
+
+  // Count actual lines (by counting #10) and find cursor line/col
+  lineCount := 1;
+  line := 1;
+  lastLineStart := 0;
+  for i := 1 to Length(txt) do
+  begin
+    if txt[i] = #10 then
+    begin
+      Inc(lineCount);
+      if i - 1 < cursorPos then
+      begin
+        Inc(line);
+        lastLineStart := i;
+      end;
+    end;
+  end;
+  col := cursorPos - lastLineStart + 1;
+
+  sbMain.SimpleText := format(rsStatusMsg, [lineCount, line, col,
+    fEncoding.EncodingName]);
 end;
 
 procedure TfrmMain.actUndoExecute(Sender: TObject);
@@ -356,17 +386,24 @@ begin
 end;
 
 procedure TfrmMain.dlgFindFind(Sender: TObject);
+var
+  SearchText, ContentText: unicodestring;
 begin
   with Sender as TFindDialog do
   begin
-    fFoundPos := PosEx(unicodestring(FindText), unicodestring(memoMain.Lines.Text),
-      fFoundPos + 1);
+    SearchText := unicodestring(FindText);
+    ContentText := unicodestring(memoMain.Lines.Text);
+    if not (frMatchCase in Options) then
+    begin
+      SearchText := UnicodeUpperCase(SearchText);
+      ContentText := UnicodeUpperCase(ContentText);
+    end;
+    fFoundPos := PosEx(SearchText, ContentText, fFoundPos + 1);
     if fFoundPos > 0 then
     begin
       memoMain.SelStart := fFoundPos - 1;
       memoMain.SelLength := Length(unicodestring(FindText));
       memoMain.SetFocus;
-      // memoMain must be activated, otherwise the selection effect will not be displayed
     end
     else
       Beep();
@@ -374,17 +411,24 @@ begin
 end;
 
 procedure TfrmMain.dlgReplaceFind(Sender: TObject);
+var
+  SearchText, ContentText: unicodestring;
 begin
   with Sender as TReplaceDialog do
   begin
-    fFoundPos := PosEx(unicodestring(FindText), unicodestring(memoMain.Lines.Text),
-      fFoundPos + 1);
+    SearchText := unicodestring(FindText);
+    ContentText := unicodestring(memoMain.Lines.Text);
+    if not (frMatchCase in Options) then
+    begin
+      SearchText := UnicodeUpperCase(SearchText);
+      ContentText := UnicodeUpperCase(ContentText);
+    end;
+    fFoundPos := PosEx(SearchText, ContentText, fFoundPos + 1);
     if fFoundPos > 0 then
     begin
       memoMain.SelStart := fFoundPos - 1;
       memoMain.SelLength := Length(unicodestring(FindText));
       memoMain.SetFocus;
-      // memoMain must be activated, otherwise the selection effect will not be displayed
     end
     else
       Beep();
@@ -426,6 +470,23 @@ procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
   CanClose := HandleChanges;
   actSaveOptIons.Execute;
+end;
+
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+  actLoadOptions.Execute;
+  fFullScreen := False;
+  memoMain.Clear;
+  fMD5 := MD5String(memoMain.Text);
+  actNew.Execute;
+  AppLication.ProcessMessages;
+  actHandleParams.Execute;
+  {$ifdef linux}
+  actLinuxShortCut.Visible := True;
+  {$endif}
+  {$ifdef windows}
+  actLinuxShortCut.Visible := False;
+  {$endif}
 end;
 
 procedure TfrmMain.actPasteExecute(Sender: TObject);
@@ -548,18 +609,38 @@ procedure TfrmMain.actJumpExecute(Sender: TObject);
 var
   tmp: string;
   jump: integer;
-  Pos, i: integer;
+  i, currentLine, lineCount, targetPos: integer;
+  txt: string;
 begin
-  tmp := InputBox(Application.Title, rsJumpTo, IntToStr(memoMain.CaretPos.Y + 1));
+  txt := memoMain.Text;
+
+  // Calculate current actual line
+  currentLine := 1;
+  for i := 1 to memoMain.SelStart do
+    if txt[i] = #10 then Inc(currentLine);
+
+  // Count actual lines
+  lineCount := 1;
+  for i := 1 to Length(txt) do
+    if txt[i] = #10 then Inc(lineCount);
+
+  tmp := InputBox(Application.Title, rsJumpTo, IntToStr(currentLine));
   if TryStrToInt(tmp, jump) then
   begin
-    if (jump < 1) or (jump > memoMain.Lines.Count) then Exit;
-    Pos := 0;
-    for i := 0 to jump - 2 do
-      Inc(Pos, Length(memoMain.Lines[i]) + string(LineEnding).Length);
-    memoMain.SelStart := pos;
+    if (jump < 1) or (jump > lineCount) then Exit;
+
+    // Find position of target line
+    targetPos := 0;
+    currentLine := 1;
+    for i := 1 to Length(txt) do
+    begin
+      if currentLine = jump then Break;
+      if txt[i] = #10 then Inc(currentLine);
+      Inc(targetPos);
+    end;
+
+    memoMain.SelStart := targetPos;
     memoMain.SelLength := 0;
-    memoMain.SelText := memoMain.SelText;
     memoMain.SetFocus;
   end;
 end;
@@ -636,8 +717,9 @@ begin
     Self.Width := ini.ReadInteger(Application.Title, keyWidth, 640);
     Self.Height := ini.ReadInteger(Application.Title, keyHeight, 480);
     memoMain.ParentFont := False;
-    memoMain.Font.Name := ini.ReadString(Application.Title, keyFontName, 'default');
-    fFontSize := ini.ReadInteger(Application.Title, keyFontSize, 12);
+    memoMain.Font.Name := ini.ReadString(Application.Title, keyFontName,
+      Screen.SystemFont.Name);
+    fFontSize := ini.ReadInteger(Application.Title, keyFontSize, Screen.SystemFont.Size);
     memoMain.Font.Size := fFontSize;
     memoMain.Font.Style := TFontStyles(ini.ReadInteger(Application.Title,
       keyFontStyle, 0));

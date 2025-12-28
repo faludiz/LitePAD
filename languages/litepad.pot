@@ -9,6 +9,11 @@ msgstr ""
 msgid "Jump to line:"
 msgstr ""
 
+#: main.rsloadingfile
+#, object-pascal-format
+msgid "Loading: %s"
+msgstr ""
+
 #: main.rsmsgsavequery
 msgid "Do You want to save the changes?"
 msgstr ""

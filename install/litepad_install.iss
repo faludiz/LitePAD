@@ -5,7 +5,7 @@
 #define VerMajor "25"
 #define VerMinor "12"
 #define VerRevsn "0"
-#define VerBuild "7"
+#define VerBuild "8"
 #define MyAppName "LitePad"
 #define MyAppVersion VerMajor + "." + VerMinor + "." + VerRevsn + "." + VerBuild
 #define MyOutputFile "litepad_" + VerMajor + "_" + VerMinor + "_" + VerRevsn + "_" + VerBuild + "_amd64"
